@@ -5,6 +5,7 @@ class UsersDAO:
 
         #connection_url = "dbname=%s user=%s password=%s" % (pg_config['dbname'],pg_config['user'],pg_config['passwd'])
         #self.conn = psycopg2._connect(connection_url)
+        return []
 
     def getAllUsers(self):
         return []

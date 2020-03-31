@@ -6,13 +6,23 @@ users = Blueprint('users', __name__)
 def getAllUsers():
     if request.method == 'POST':
       #insert a user
-      return jsonify(Message="User created."), 200
+      return jsonify(Message="User created."), 201
     else:
         if not request.args:
             return UserHandler().getAllUsers()
         else:
             return UserHandler().searchUsers(request.args)
 
+@users.route('/admin/', methods=['GET', 'POST'])
+def getAllAdminUsers():
+    if request.method == 'POST':
+      #insert a user
+      return jsonify(Message="Admin user created."), 201
+    else:
+        if not request.args:
+            return UserHandler().getAllAdminUsers()
+        else:
+            return UserHandler().searchUsers(request.args)
 
 @users.route('/<int:user_id>', methods=['GET', 'PUT', 'DELETE'])
 def getUserById(user_id):
