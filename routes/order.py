@@ -26,4 +26,3 @@ def getOrderById(order_id):
     else:
         return jsonify(Error="Method not allowed."), 405
 
-

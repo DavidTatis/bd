@@ -6,6 +6,7 @@ from flask import Flask, jsonify, request, Blueprint
 from flask_cors import CORS, cross_origin
 from routes.user import users
 from routes.order import orders
+from routes.organization import organizations
 from routes.resource import resources
 
 
@@ -16,6 +17,7 @@ CORS(app)
 
 app.register_blueprint(users, url_prefix='/Supply/users')
 app.register_blueprint(orders, url_prefix='/Supply/orders')
+app.register_blueprint(organizations, url_prefix='/Supply/organizations')
 app.register_blueprint(resources, url_prefix='/Supply/resources')
 
 
