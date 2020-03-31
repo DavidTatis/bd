@@ -5,6 +5,7 @@ from flask import Flask, jsonify, request, Blueprint
 # machines to access this app
 from flask_cors import CORS, cross_origin
 from routes.user import users
+from routes.order import orders
 from routes.part import parts
 from routes.supplier import supplier
 
@@ -14,6 +15,8 @@ app = Flask(__name__)
 CORS(app)
 
 app.register_blueprint(users, url_prefix='/Supply/users')
+app.register_blueprint(orders, url_prefix='/Supply/orders')
+
 app.register_blueprint(parts, url_prefix='/Supply/parts')
 app.register_blueprint(supplier, url_prefix='/Supply/suppliers')
 
