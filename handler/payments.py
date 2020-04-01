@@ -2,12 +2,12 @@ from flask import jsonify
 
 
 
-class PaymentHandler:
+class PaymentsHandler:
     def getAllPayments(self):
         payments = [
-            {"payment_id":1, "method":'Paypal',"amount":22000},
-            {"payment_id":2, "method":'Paypal',"amount":33000},
-            {"payment_id":3, "method":'Paypal',"amount":100},
+            {"payment_id": 1, "method": 'visa', "amount": 100, "date": 1585683736555},
+            {"payment_id": 2, "method": 'visa', "amount": 50, "date": 1158746985455},
+            {"payment_id": 3, "method": 'visa', "amount": 80, "date": 1632568956205},
         ]
         return jsonify(Payments=payments), 200
 

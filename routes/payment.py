@@ -1,5 +1,5 @@
 from flask import Blueprint, request,jsonify
-from handler.payment import PaymentsHandler
+from handler.payments import PaymentsHandler
 payments = Blueprint('payments', __name__)
 
 @payments.route('/', methods=['GET', 'POST'])
