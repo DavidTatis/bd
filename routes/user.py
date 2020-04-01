@@ -22,7 +22,29 @@ def getAllAdminUsers():
         if not request.args:
             return UserHandler().getAllAdminUsers()
         else:
-            return UserHandler().searchUsers(request.args)
+            return UserHandler().searchAdminUsers(request.args)
+
+@users.route('/supplier/', methods=['GET', 'POST'])
+def getAllSupplierUsers():
+    if request.method == 'POST':
+      #insert a user
+      return jsonify(Message="Supplier user created."), 201
+    else:
+        if not request.args:
+            return UserHandler().getAllSupplierUsers()
+        else:
+            return UserHandler().searchSupplierUsers(request.args)
+
+@users.route('/consumer/', methods=['GET', 'POST'])
+def getAllConsumerUsers():
+    if request.method == 'POST':
+      #insert a user
+      return jsonify(Message="Consumer user created."), 201
+    else:
+        if not request.args:
+            return UserHandler().getAllConsumerUsers()
+        else:
+            return UserHandler().searchConsumerUsers(request.args)
 
 @users.route('/<int:user_id>', methods=['GET', 'PUT', 'DELETE'])
 def getUserById(user_id):
