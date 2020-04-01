@@ -8,6 +8,7 @@ from routes.user import users
 from routes.order import orders
 from routes.organization import organizations
 from routes.resource import resources
+from routes.payment import payments
 
 
 # Activate
@@ -19,6 +20,7 @@ app.register_blueprint(users, url_prefix='/Supply/users')
 app.register_blueprint(orders, url_prefix='/Supply/orders')
 app.register_blueprint(organizations, url_prefix='/Supply/organizations')
 app.register_blueprint(resources, url_prefix='/Supply/resources')
+app.register_blueprint(payments, url_prefix='/Supply/payments')
 
 
 @app.route('/')
