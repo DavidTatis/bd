@@ -1,0 +1,4 @@
+/venv/
+/.vagrant
+schema.sql
+*/__pycache__/
