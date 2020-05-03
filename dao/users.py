@@ -12,7 +12,6 @@ class UsersDAO:
 
 
     def getAllUsers(self):
-        print("----------------------- get all users")
         cursor = self.conn.cursor()
         query = "select * from organization;"
         cursor.execute(query)
