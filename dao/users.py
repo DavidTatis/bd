@@ -27,8 +27,6 @@ class UsersDAO:
         result = []
         for row in cursor:
             result.append(row)
-            print(row)
-            print("\n")
         return result
 
     def getAllSupplierUsers(self):
