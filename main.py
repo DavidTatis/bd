@@ -1,5 +1,4 @@
 from flask import Flask, jsonify, request, Blueprint
-
 # Import Cross-Origin Resource Sharing to enable
 # services on other ports on this machine or on other
 # machines to access this app
@@ -32,3 +31,5 @@ def greeting():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080)
+
+

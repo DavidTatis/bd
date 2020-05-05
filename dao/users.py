@@ -13,7 +13,16 @@ class UsersDAO:
 
     def getAllUsers(self):
         cursor = self.conn.cursor()
-        query = "select * from organization;"
+        query = "select * from user"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllAdminUsers(self):
+        cursor = self.conn.cursor()
+        query = "select * from admin"
         cursor.execute(query)
         result = []
         for row in cursor:
@@ -22,3 +31,20 @@ class UsersDAO:
             print("\n")
         return result
 
+    def getAllSupplierUsers(self):
+        cursor = self.conn.cursor()
+        query = "select * from supplier"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
+
+    def getAllConsumerUsers(self):
+        cursor = self.conn.cursor()
+        query = "select * from consumer"
+        cursor.execute(query)
+        result = []
+        for row in cursor:
+            result.append(row)
+        return result
