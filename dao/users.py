@@ -13,7 +13,7 @@ class UsersDAO:
 
     def getAllUsers(self):
         cursor = self.conn.cursor()
-        query = "select * from user"
+        query = "select * from users"
         cursor.execute(query)
         result = []
         for row in cursor:
