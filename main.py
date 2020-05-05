@@ -11,7 +11,6 @@ from routes.resource import resources
 from routes.payment import payments
 from routes.request import requests
 
-
 # Activate
 app = Flask(__name__)
 # Apply CORS to this app

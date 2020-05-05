@@ -136,3 +136,88 @@ class ResourcesHandler:
             {"resource_id":1, "quantity": 500, "description": 'Hammer 24', "brand": 'Home Depot',  "price": 2.00, "lat": 18.0111, "long": 66.6141, "Size":'Medium' , "Gender":'Male', "color": 'Red', "material": 'Cotton'},
         ]
         return jsonify(Resources=resources,Args=args), 200
+
+    # =============== HEAVY EQUIPMENT ===========================
+    def getAllHeavyEquipmentResources(self):
+        resources = [
+            {"resource_id":1, "quantity": 500, "description": 'Hammer 24', "brand": 'Home Depot',  "price": 2.00, "lat": 18.0111, "long": 66.6141, "Size":'Medium' , "Gender":'Male', "color": 'Red', "material": 'Cotton'},
+            {"resource_id": 2, "quantity": 123, "description": 'Saw 3 Feetlong', "brand": 'Home Depot',  "price": 16.00, "lat": 18.0121, "long": 65.6181, "Size":'Small' , "Gender":'Male', "color": 'Red', "material": 'Cotton'},
+            {"resource_id": 3, "quantity": 50000, "description": 'Wood Plank 4 feet long', "brand": 'Home Depot',  "price": 4.00, "lat": 18.0111, "long": 64.9876, "Size":'Large' , "Gender":'Male', "color": 'Blue', "material": 'Cotton'},
+        ]
+        return jsonify(resources=resources), 200
+
+    def getHeavyEquipmentResourceById(self, resource_id):
+        resources = [
+            {"resource_id":1, "quantity": 500, "description": 'Hammer 24', "brand": 'Home Depot',  "price": 2.00, "lat": 18.0111, "long": 66.6141, "Size":'Medium' , "Gender":'Male', "color": 'Red', "material": 'Cotton'},
+        ]
+        return jsonify(Resources=resources), 200
+
+    def searchHeavyEquipmentResources(self, args):
+        resources = [
+            {"resource_id":1, "quantity": 500, "description": 'Hammer 24', "brand": 'Home Depot',  "price": 2.00, "lat": 18.0111, "long": 66.6141, "Size":'Medium' , "Gender":'Male', "color": 'Red', "material": 'Cotton'},
+        ]
+        return jsonify(Resources=resources,Args=args), 200
+
+    # =============== ICE ===========================
+    def getAllIceResources(self):
+        resources = [
+            {"resource_id":1, "quantity": 500, "description": 'Hammer 24', "brand": 'Home Depot',  "price": 2.00, "lat": 18.0111, "long": 66.6141, "Size":'Medium' , "Gender":'Male', "color": 'Red', "material": 'Cotton'},
+            {"resource_id": 2, "quantity": 123, "description": 'Saw 3 Feetlong', "brand": 'Home Depot',  "price": 16.00, "lat": 18.0121, "long": 65.6181, "Size":'Small' , "Gender":'Male', "color": 'Red', "material": 'Cotton'},
+            {"resource_id": 3, "quantity": 50000, "description": 'Wood Plank 4 feet long', "brand": 'Home Depot',  "price": 4.00, "lat": 18.0111, "long": 64.9876, "Size":'Large' , "Gender":'Male', "color": 'Blue', "material": 'Cotton'},
+        ]
+        return jsonify(resources=resources), 200
+
+    def getIceResourceById(self, resource_id):
+        resources = [
+            {"resource_id":1, "quantity": 500, "description": 'Hammer 24', "brand": 'Home Depot',  "price": 2.00, "lat": 18.0111, "long": 66.6141, "Size":'Medium' , "Gender":'Male', "color": 'Red', "material": 'Cotton'},
+        ]
+        return jsonify(Resources=resources), 200
+
+    def searchIceResources(self, args):
+        resources = [
+            {"resource_id":1, "quantity": 500, "description": 'Hammer 24', "brand": 'Home Depot',  "price": 2.00, "lat": 18.0111, "long": 66.6141, "Size":'Medium' , "Gender":'Male', "color": 'Red', "material": 'Cotton'},
+        ]
+        return jsonify(Resources=resources,Args=args), 200
+
+    # =============== MEDICAL DEVICE ===========================
+    def getAllMedicalDeviceResources(self):
+        resources = [
+            {"resource_id":1, "quantity": 500, "description": 'Hammer 24', "brand": 'Home Depot',  "price": 2.00, "lat": 18.0111, "long": 66.6141, "Size":'Medium' , "Gender":'Male', "color": 'Red', "material": 'Cotton'},
+            {"resource_id": 2, "quantity": 123, "description": 'Saw 3 Feetlong', "brand": 'Home Depot',  "price": 16.00, "lat": 18.0121, "long": 65.6181, "Size":'Small' , "Gender":'Male', "color": 'Red', "material": 'Cotton'},
+            {"resource_id": 3, "quantity": 50000, "description": 'Wood Plank 4 feet long', "brand": 'Home Depot',  "price": 4.00, "lat": 18.0111, "long": 64.9876, "Size":'Large' , "Gender":'Male', "color": 'Blue', "material": 'Cotton'},
+        ]
+        return jsonify(resources=resources), 200
+
+    def getMedicalDeviceResourceById(self, resource_id):
+        resources = [
+            {"resource_id":1, "quantity": 500, "description": 'Hammer 24', "brand": 'Home Depot',  "price": 2.00, "lat": 18.0111, "long": 66.6141, "Size":'Medium' , "Gender":'Male', "color": 'Red', "material": 'Cotton'},
+        ]
+        return jsonify(Resources=resources), 200
+
+    def searchMedicalDeviceResources(self, args):
+        resources = [
+            {"resource_id":1, "quantity": 500, "description": 'Hammer 24', "brand": 'Home Depot',  "price": 2.00, "lat": 18.0111, "long": 66.6141, "Size":'Medium' , "Gender":'Male', "color": 'Red', "material": 'Cotton'},
+        ]
+        return jsonify(Resources=resources,Args=args), 200
+
+    # =============== FUEL ===========================
+    def getAllFuelResources(self):
+        resources = [
+            {"resource_id":1, "quantity": 500, "description": 'Hammer 24', "brand": 'Home Depot',  "price": 2.00, "lat": 18.0111, "long": 66.6141, "Size":'Medium' , "Gender":'Male', "color": 'Red', "material": 'Cotton'},
+            {"resource_id": 2, "quantity": 123, "description": 'Saw 3 Feetlong', "brand": 'Home Depot',  "price": 16.00, "lat": 18.0121, "long": 65.6181, "Size":'Small' , "Gender":'Male', "color": 'Red', "material": 'Cotton'},
+            {"resource_id": 3, "quantity": 50000, "description": 'Wood Plank 4 feet long', "brand": 'Home Depot',  "price": 4.00, "lat": 18.0111, "long": 64.9876, "Size":'Large' , "Gender":'Male', "color": 'Blue', "material": 'Cotton'},
+        ]
+        return jsonify(resources=resources), 200
+
+    def getFuelResourceById(self, resource_id):
+        resources = [
+            {"resource_id":1, "quantity": 500, "description": 'Hammer 24', "brand": 'Home Depot',  "price": 2.00, "lat": 18.0111, "long": 66.6141, "Size":'Medium' , "Gender":'Male', "color": 'Red', "material": 'Cotton'},
+        ]
+        return jsonify(Resources=resources), 200
+
+    def searchFuelResources(self, args):
+        resources = [
+            {"resource_id":1, "quantity": 500, "description": 'Hammer 24', "brand": 'Home Depot',  "price": 2.00, "lat": 18.0111, "long": 66.6141, "Size":'Medium' , "Gender":'Male', "color": 'Red', "material": 'Cotton'},
+        ]
+        return jsonify(Resources=resources,Args=args), 200
+

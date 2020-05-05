@@ -170,3 +170,103 @@ def getClothingResourceById(resource_id):
         return jsonify(Message="Clothing Resource delete successful"), 200
     else:
         return jsonify(Error="Method not allowed."), 405
+
+# ====================== HEAVY EQUIPMENT ==============================
+
+@resources.route('/heavyEquipment/', methods=['GET', 'POST'])
+def getAllHeavyEquipmentResources():
+    if request.method == 'POST':
+        return jsonify(Message="Heavy Equipment Resource created."), 200
+    else:
+        if not request.args:
+            return ResourcesHandler().getAllHeavyEquipmentResources()
+        else:
+            return ResourcesHandler().searchHeavyEquipmentResources(request.args)
+
+@resources.route('/heavyEquipment/<int:resource_id>', methods=['GET', 'PUT', 'DELETE'])
+def getHeavyEquipmentResourceById(resource_id):
+    if request.method == 'GET':
+        return ResourcesHandler().getHeavyEquipmentResourceById(resource_id)
+    elif request.method == 'PUT':
+        # ResourcesHandler().updateHeavyEquipmentResource(resource_id,request.form)
+        return jsonify(Message="Heavy Equipment Resource update successful"), 200
+    elif request.method == 'DELETE':
+        # ResourcesHandler().deleteHeavyEquipmentResource(resource_id)
+        return jsonify(Message="Heavy Equipment Resource delete successful"), 200
+    else:
+        return jsonify(Error="Method not allowed."), 405
+
+# ====================== ICE ==============================
+
+@resources.route('/ice/', methods=['GET', 'POST'])
+def getAllIceResources():
+    if request.method == 'POST':
+        return jsonify(Message="Ice Resource created."), 200
+    else:
+        if not request.args:
+            return ResourcesHandler().getAllIceResources()
+        else:
+            return ResourcesHandler().searchIceResources(request.args)
+
+@resources.route('/ice/<int:resource_id>', methods=['GET', 'PUT', 'DELETE'])
+def getIceResourceById(resource_id):
+    if request.method == 'GET':
+        return ResourcesHandler().getIceResourceById(resource_id)
+    elif request.method == 'PUT':
+        # ResourcesHandler().updateIceResource(resource_id,request.form)
+        return jsonify(Message="Ice Resource update successful"), 200
+    elif request.method == 'DELETE':
+        # ResourcesHandler().deleteIceResource(resource_id)
+        return jsonify(Message="Ice Resource delete successful"), 200
+    else:
+        return jsonify(Error="Method not allowed."), 405
+
+# ====================== MEDICAL DEVICE ==============================
+
+@resources.route('/medicalDevice/', methods=['GET', 'POST'])
+def getAllMedicalDeviceResources():
+    if request.method == 'POST':
+        return jsonify(Message="Medical Device Resource created."), 200
+    else:
+        if not request.args:
+            return ResourcesHandler().getAllMedicalDeviceResources()
+        else:
+            return ResourcesHandler().searchMedicalDeviceResources(request.args)
+
+@resources.route('/medicalDevice/<int:resource_id>', methods=['GET', 'PUT', 'DELETE'])
+def getMedicalDeviceResourceById(resource_id):
+    if request.method == 'GET':
+        return ResourcesHandler().getMedicalDeviceResourceById(resource_id)
+    elif request.method == 'PUT':
+        # ResourcesHandler().updateMedicalDeviceResource(resource_id,request.form)
+        return jsonify(Message="Medical Device update successful"), 200
+    elif request.method == 'DELETE':
+        # ResourcesHandler().deleteMedicalDeviceResource(resource_id)
+        return jsonify(Message="Medical Device Resource delete successful"), 200
+    else:
+        return jsonify(Error="Method not allowed."), 405
+
+# ====================== FUEL ==============================
+
+@resources.route('/fuel/', methods=['GET', 'POST'])
+def getAllFuelResources():
+    if request.method == 'POST':
+        return jsonify(Message="Fuel Resource created."), 200
+    else:
+        if not request.args:
+            return ResourcesHandler().getAllFuelResources()
+        else:
+            return ResourcesHandler().searchFuelResources(request.args)
+
+@resources.route('/fuel/<int:resource_id>', methods=['GET', 'PUT', 'DELETE'])
+def getFuelResourceById(resource_id):
+    if request.method == 'GET':
+        return ResourcesHandler().getFuelResourceById(resource_id)
+    elif request.method == 'PUT':
+        # ResourcesHandler().updateFuelResource(resource_id,request.form)
+        return jsonify(Message="Fuel Resource update successful"), 200
+    elif request.method == 'DELETE':
+        # ResourcesHandler().deleteFuelResource(resource_id)
+        return jsonify(Message="Fuel Resource delete successful"), 200
+    else:
+        return jsonify(Error="Method not allowed."), 405
