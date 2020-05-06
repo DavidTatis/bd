@@ -2,7 +2,7 @@ from config.dbconfig import pg_config
 import psycopg2
 from handler.dictionary import Dictionary
 
-class UsersDAO:
+class OrganizationsDAO:
     def __init__(self):
         connection_url = "dbname=%s user=%s password=%s host=%s port=%d" % (pg_config['dbname'],
                                                             pg_config['user'],
@@ -12,9 +12,9 @@ class UsersDAO:
         self.conn = psycopg2._connect(connection_url)
 
 
-    def getAllUsers(self):
+    def getAllOrganizations(self):
         cursor = self.conn.cursor()
-        query = "select * from users;"
+        query = "select * from organization;"
         cursor.execute(query)
         result = []
         for row in cursor:
