@@ -4,12 +4,12 @@ from flask import Flask, jsonify, request, Blueprint
 # services on other ports on this machine or on other
 # machines to access this app
 from flask_cors import CORS, cross_origin
-from routes.user import users
 from routes.order import orders
 from routes.organization import organizations
 from routes.resource import resources
 from routes.payment import payments
 from routes.request import requests
+from routes.user import users
 
 # Activate
 app = Flask(__name__)

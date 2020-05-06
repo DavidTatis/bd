@@ -88,7 +88,7 @@ def getBatteryResourceById(resource_id):
 
 #====================== POWER GENERATORS ==============================
 
-@resources.route('/PowerGenerator/', methods=['GET', 'POST'])
+@resources.route('/powerGenerator/', methods=['GET', 'POST'])
 def getAllPowerGeneratorResources():
     if request.method == 'POST':
       return jsonify(Message="Power Generators Resource created."), 200
@@ -99,7 +99,7 @@ def getAllPowerGeneratorResources():
             return ResourcesHandler().searchPowerGeneratorResources(request.args)
 
 
-@resources.route('/PowerGenerator/<int:resource_id>', methods=['GET', 'PUT', 'DELETE'])
+@resources.route('/powerGenerator/<int:resource_id>', methods=['GET', 'PUT', 'DELETE'])
 def getPowerGeneratorResourceById(resource_id):
     if request.method == 'GET':
         return ResourcesHandler().getPowerGeneratorResourceById(resource_id)
@@ -129,7 +129,7 @@ def getAllToolResources():
             return ResourcesHandler().searchToolResources(request.args)
 
 
-@resources.route('/PowerGenerator/<int:resource_id>', methods=['GET', 'PUT', 'DELETE'])
+@resources.route('/tool/<int:resource_id>', methods=['GET', 'PUT', 'DELETE'])
 def getToolResourceById(resource_id):
     if request.method == 'GET':
         return ResourcesHandler().getToolResourceById(resource_id)
@@ -268,5 +268,102 @@ def getFuelResourceById(resource_id):
     elif request.method == 'DELETE':
         # ResourcesHandler().deleteFuelResource(resource_id)
         return jsonify(Message="Fuel Resource delete successful"), 200
+# ====================== CANNED FOOD ==============================
+
+@resources.route('/cannedFood/', methods=['GET', 'POST'])
+def getAllCannedFoodResources():
+    if request.method == 'POST':
+        return jsonify(Message="Canned Food Resource created."), 200
+    else:
+        if not request.args:
+            return ResourcesHandler().getAllCannedFoodResources()
+        else:
+            return ResourcesHandler().searchCannedFoodResources(request.args)
+
+@resources.route('/cannedFood/<int:resource_id>', methods=['GET', 'PUT', 'DELETE'])
+def getCannedFoodResourceById(resource_id):
+    if request.method == 'GET':
+        return ResourcesHandler().getCannedFoodResourceById(resource_id)
+    elif request.method == 'PUT':
+        # ResourcesHandler().updateClothingResource(resource_id,request.form)
+        return jsonify(Message="Canned Food Resource update successful"), 200
+    elif request.method == 'DELETE':
+        # ResourcesHandler().deleteClothingResource(resource_id)
+        return jsonify(Message="Canned Food Resource delete successful"), 200
+    else:
+        return jsonify(Error="Method not allowed."), 405
+
+# ====================== DRY FOOD ==============================
+
+@resources.route('/dryFood/', methods=['GET', 'POST'])
+def getAllDryFoodResources():
+    if request.method == 'POST':
+        return jsonify(Message="Dry Food Resource created."), 200
+    else:
+        if not request.args:
+            return ResourcesHandler().getAllDryFoodResources()
+        else:
+            return ResourcesHandler().searchDryFoodResources(request.args)
+
+@resources.route('/dryFood/<int:resource_id>', methods=['GET', 'PUT', 'DELETE'])
+def getDryFoodResourceById(resource_id):
+    if request.method == 'GET':
+        return ResourcesHandler().getDryFoodResourceById(resource_id)
+    elif request.method == 'PUT':
+        # ResourcesHandler().updateClothingResource(resource_id,request.form)
+        return jsonify(Message="Dry Food Resource update successful"), 200
+    elif request.method == 'DELETE':
+        # ResourcesHandler().deleteClothingResource(resource_id)
+        return jsonify(Message="Dry Food Resource delete successful"), 200
+    else:
+        return jsonify(Error="Method not allowed."), 405
+
+# ====================== BABY FOOD ==============================
+
+@resources.route('/babyFood/', methods=['GET', 'POST'])
+def getAllBabyFoodResources():
+    if request.method == 'POST':
+        return jsonify(Message="Baby Food Resource created."), 200
+    else:
+        if not request.args:
+            return ResourcesHandler().getAllBabyFoodResources()
+        else:
+            return ResourcesHandler().searchBabyFoodResources(request.args)
+
+@resources.route('/babyFood/<int:resource_id>', methods=['GET', 'PUT', 'DELETE'])
+def getBabyFoodResourceById(resource_id):
+    if request.method == 'GET':
+        return ResourcesHandler().getBabyFoodResourceById(resource_id)
+    elif request.method == 'PUT':
+        # ResourcesHandler().updateClothingResource(resource_id,request.form)
+        return jsonify(Message="Baby Food Resource update successful"), 200
+    elif request.method == 'DELETE':
+        # ResourcesHandler().deleteClothingResource(resource_id)
+        return jsonify(Message="Baby Food Resource delete successful"), 200
+    else:
+        return jsonify(Error="Method not allowed."), 405
+
+# ====================== MEDICATION ==============================
+
+@resources.route('/medication/', methods=['GET', 'POST'])
+def getAllMedicationResources():
+    if request.method == 'POST':
+        return jsonify(Message="Medication Resource created."), 200
+    else:
+        if not request.args:
+            return ResourcesHandler().getAllMedicationResources()
+        else:
+            return ResourcesHandler().searchMedicationResources(request.args)
+
+@resources.route('/medication/<int:resource_id>', methods=['GET', 'PUT', 'DELETE'])
+def getMedicationResourceById(resource_id):
+    if request.method == 'GET':
+        return ResourcesHandler().getMedicationResourceById(resource_id)
+    elif request.method == 'PUT':
+        # ResourcesHandler().updateClothingResource(resource_id,request.form)
+        return jsonify(Message="Medication Resource update successful"), 200
+    elif request.method == 'DELETE':
+        # ResourcesHandler().deleteClothingResource(resource_id)
+        return jsonify(Message="Medication Resource delete successful"), 200
     else:
         return jsonify(Error="Method not allowed."), 405

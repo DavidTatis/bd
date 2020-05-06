@@ -4,7 +4,7 @@ from flask import jsonify
 class ResourcesHandler:
     def getAllResources(self):
         resources = [
-            {"resource_id":1, "quantity": 2, "description": 'Botellas de agua 13oz Dasani', "brand": 'Dasani', "price": 1.00, "lat": 18.0111, "long": 66.6141},
+            {"resource_id": 1, "quantity": 2, "description": 'Botellas de agua 13oz Dasani', "brand": 'Dasani', "price": 1.00, "lat": 18.0111, "long": 66.6141},
             {"resource_id": 2, "quantity": 23, "description": 'Bolsa de hielo 5 libras', "brand": 'La Hielera Inc', "price": 5.00, "lat": 18.0121, "long": 65.6181},
             {"resource_id": 3, "quantity": 5, "description": 'Salchichas Carmela', "brand": 'Carmela',  "price": 0.59, "lat": 18.0111, "long": 64.9876},
         ]
@@ -221,3 +221,94 @@ class ResourcesHandler:
         ]
         return jsonify(Resources=resources,Args=args), 200
 
+
+
+    # =============== CANNED FOOD ===========================
+    def getAllCannedFoodResources(self):
+        resources = [
+            {"resource_id": 1, "quantity": 500, "description": 'Salchicha carmela', "brand": 'Home Depot',  "price": 2.00, "lat": 18.0111, "long": 66.6141, "Size":'Medium' , "Gender":'Male', "color": 'Red', "material": 'Cotton'},
+            {"resource_id": 2, "quantity": 123, "description": 'Saw 3 Feetlong', "brand": 'Home Depot',  "price": 16.00, "lat": 18.0121, "long": 65.6181, "Size":'Small' , "Gender":'Male', "color": 'Red', "material": 'Cotton'},
+            {"resource_id": 3, "quantity": 50000, "description": 'Wood Plank 4 feet long', "brand": 'Home Depot',  "price": 4.00, "lat": 18.0111, "long": 64.9876, "Size":'Large' , "Gender":'Male', "color": 'Blue', "material": 'Cotton'},
+        ]
+        return jsonify(resources=resources), 200
+
+    def getCannedFoodResourceById(self, resource_id):
+        resources = [
+            {"resource_id":1, "quantity": 500, "description": 'Salchicha carmela', "brand": 'Home Depot',  "price": 2.00, "lat": 18.0111, "long": 66.6141, "Size":'Medium' , "Gender":'Male', "color": 'Red', "material": 'Cotton'},
+        ]
+        return jsonify(Resources=resources), 200
+
+    def searchCannedFoodResources(self, args):
+        resources = [
+            {"resource_id":1, "quantity": 500, "description": 'Salchicha carmela', "brand": 'Home Depot',  "price": 2.00, "lat": 18.0111, "long": 66.6141, "Size":'Medium' , "Gender":'Male', "color": 'Red', "material": 'Cotton'},
+        ]
+        return jsonify(Resources=resources,Args=args), 200
+
+
+
+    # =============== DRY FOOD ===========================
+    def getAllDryFoodResources(self):
+        resources = [
+            {"resource_id": 1, "quantity": 500, "description": 'Mezcla de Pancake', "brand": 'Home Depot',  "price": 2.00, "lat": 18.0111, "long": 66.6141, "Size":'Medium' , "Gender":'Male', "color": 'Red', "material": 'Cotton'},
+            {"resource_id": 2, "quantity": 123, "description": 'Saw 3 Feetlong', "brand": 'Home Depot',  "price": 16.00, "lat": 18.0121, "long": 65.6181, "Size":'Small' , "Gender":'Male', "color": 'Red', "material": 'Cotton'},
+            {"resource_id": 3, "quantity": 50000, "description": 'Wood Plank 4 feet long', "brand": 'Home Depot',  "price": 4.00, "lat": 18.0111, "long": 64.9876, "Size":'Large' , "Gender":'Male', "color": 'Blue', "material": 'Cotton'},
+        ]
+        return jsonify(resources=resources), 200
+
+    def getDryFoodResourceById(self, resource_id):
+        resources = [
+            {"resource_id":1, "quantity": 500, "description": 'Mezcla de Pancake', "brand": 'Home Depot',  "price": 2.00, "lat": 18.0111, "long": 66.6141, "Size":'Medium' , "Gender":'Male', "color": 'Red', "material": 'Cotton'},
+        ]
+        return jsonify(Resources=resources), 200
+
+    def searchDryFoodResources(self, args):
+        resources = [
+            {"resource_id":1, "quantity": 500, "description": 'Mezcla de Pancake', "brand": 'Home Depot',  "price": 2.00, "lat": 18.0111, "long": 66.6141, "Size":'Medium' , "Gender":'Male', "color": 'Red', "material": 'Cotton'},
+        ]
+        return jsonify(Resources=resources,Args=args), 200
+
+
+
+    # =============== BABY FOOD ===========================
+    def getAllBabyFoodResources(self):
+        resources = [
+            {"resource_id": 1, "quantity": 500, "description": 'Baby Food Guineo', "brand": 'Home Depot',  "price": 2.00, "lat": 18.0111, "long": 66.6141, "Size":'Medium' , "Gender":'Male', "color": 'Red', "material": 'Cotton'},
+            {"resource_id": 2, "quantity": 123, "description": 'Saw 3 Feetlong', "brand": 'Home Depot',  "price": 16.00, "lat": 18.0121, "long": 65.6181, "Size":'Small' , "Gender":'Male', "color": 'Red', "material": 'Cotton'},
+            {"resource_id": 3, "quantity": 50000, "description": 'Wood Plank 4 feet long', "brand": 'Home Depot',  "price": 4.00, "lat": 18.0111, "long": 64.9876, "Size":'Large' , "Gender":'Male', "color": 'Blue', "material": 'Cotton'},
+        ]
+        return jsonify(resources=resources), 200
+
+    def getBabyFoodResourceById(self, resource_id):
+        resources = [
+            {"resource_id":1, "quantity": 500, "description": 'Baby Food Guineo', "brand": 'Home Depot',  "price": 2.00, "lat": 18.0111, "long": 66.6141, "Size":'Medium' , "Gender":'Male', "color": 'Red', "material": 'Cotton'},
+        ]
+        return jsonify(Resources=resources), 200
+
+    def searchBabyFoodResources(self, args):
+        resources = [
+            {"resource_id":1, "quantity": 500, "description": 'Baby Food Guineo', "brand": 'Home Depot',  "price": 2.00, "lat": 18.0111, "long": 66.6141, "Size":'Medium' , "Gender":'Male', "color": 'Red', "material": 'Cotton'},
+        ]
+        return jsonify(Resources=resources,Args=args), 200
+
+
+
+    # =============== MEDICATION ===========================
+    def getAllMedicationResources(self):
+        resources = [
+            {"resource_id": 1, "quantity": 500, "description": 'Tylenol', "brand": 'Home Depot',  "price": 2.00, "lat": 18.0111, "long": 66.6141, "Size":'Medium' , "Gender":'Male', "color": 'Red', "material": 'Cotton'},
+            {"resource_id": 2, "quantity": 123, "description": 'Saw 3 Feetlong', "brand": 'Home Depot',  "price": 16.00, "lat": 18.0121, "long": 65.6181, "Size":'Small' , "Gender":'Male', "color": 'Red', "material": 'Cotton'},
+            {"resource_id": 3, "quantity": 50000, "description": 'Wood Plank 4 feet long', "brand": 'Home Depot',  "price": 4.00, "lat": 18.0111, "long": 64.9876, "Size":'Large' , "Gender":'Male', "color": 'Blue', "material": 'Cotton'},
+        ]
+        return jsonify(resources=resources), 200
+
+    def getMedicationResourceById(self, resource_id):
+        resources = [
+            {"resource_id":1, "quantity": 500, "description": 'Tylenol', "brand": 'Home Depot',  "price": 2.00, "lat": 18.0111, "long": 66.6141, "Size":'Medium' , "Gender":'Male', "color": 'Red', "material": 'Cotton'},
+        ]
+        return jsonify(Resources=resources), 200
+
+    def searchMedicationResources(self, args):
+        resources = [
+            {"resource_id":1, "quantity": 500, "description": 'Tylenols', "brand": 'Home Depot',  "price": 2.00, "lat": 18.0111, "long": 66.6141, "Size":'Medium' , "Gender":'Male', "color": 'Red', "material": 'Cotton'},
+        ]
+        return jsonify(Resources=resources,Args=args), 200
