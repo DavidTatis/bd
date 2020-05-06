@@ -22,7 +22,7 @@ class UsersDAO:
 
     def getAllAdminUsers(self):
         cursor = self.conn.cursor()
-        query = "select * from admin"
+        query = "select * from users, admin WHERE users.uid=admin.uid" #TODO: check if its correct
         cursor.execute(query)
         result = []
         for row in cursor:
@@ -31,7 +31,7 @@ class UsersDAO:
 
     def getAllSupplierUsers(self):
         cursor = self.conn.cursor()
-        query = "select * from supplier"
+        query = "select * from users, supplier WHERE users.uid=supplier.uid" #TODO: check if its correct
         cursor.execute(query)
         result = []
         for row in cursor:
@@ -40,7 +40,7 @@ class UsersDAO:
 
     def getAllConsumerUsers(self):
         cursor = self.conn.cursor()
-        query = "select * from consumer"
+        query = "select * from consumer, users WHERE users.uid=consumer.uid" #TODO: check if its correct
         cursor.execute(query)
         result = []
         for row in cursor:

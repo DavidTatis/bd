@@ -6,7 +6,11 @@ class UserHandler:
     def getAllUsers(self):
         dao = UsersDAO()
         users = dao.getAllUsers()
-        return jsonify(Users=users), 200
+        result_list=[]
+        for row in users:
+            result=self.build_user_dict(row)
+            result_list.append(result)
+        return jsonify(Users=result_list), 200
 
     def getAllAdminUsers(self):
         dao = UsersDAO()
