@@ -2,6 +2,8 @@ from flask import jsonify
 
 
 class OrdersHandler:
+
+
     def getAllOrders(self):
         orders = [
             {"order_id": 1, "quantity": 2, "date": 1585683736555},
