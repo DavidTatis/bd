@@ -9,5 +9,5 @@ pg_config = {
     'passwd' : environ.get("passwd"),
     'dbname' : environ.get("dbname"),
     'host':environ.get("host"),
-    'port':environ.get("port")
+    'port':int(environ.get("port"))
 }
