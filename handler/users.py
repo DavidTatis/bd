@@ -13,20 +13,47 @@ class UserHandler:
             result_list.append(result)
         return jsonify(Users=result_list), 200
 
+    def getAllUsersInneed(self):
+        dao = UsersDAO()
+        users = dao.getAllUsersInneed()
+        dic=Dictionary()
+        result_list=[]
+        for row in users:
+            result=dic.build_user_dict(row)
+            result_list.append(result)
+        return jsonify(Users=result_list), 200
+
+
+
     def getAllAdminUsers(self):
         dao = UsersDAO()
         users = dao.getAllAdminUsers()
-        return jsonify(Users=users), 200
+        dic = Dictionary()
+        result_list = []
+        for row in users:
+            result = dic.build_user_dict(row)
+            result_list.append(result)
+        return jsonify(Users=result_list), 200
 
     def getAllSupplierUsers(self):
         dao = UsersDAO()
         users = dao.getAllSupplierUsers()
-        return jsonify(Users=users), 200
+        dic = Dictionary()
+        result_list = []
+        for row in users:
+            result = dic.build_user_dict(row)
+            result_list.append(result)
+        return jsonify(Users=result_list), 200
 
     def getAllConsumerUsers(self):
         dao = UsersDAO()
         users = dao.getAllConsumerUsers()
-        return jsonify(Users=users), 200
+        dic = Dictionary()
+        result_list = []
+        for row in users:
+            result = dic.build_user_dict(row)
+            result_list.append(result)
+        return jsonify(Users=result_list), 200
 
     def getUserById(self, user_id):
         users = [

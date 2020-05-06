@@ -13,6 +13,11 @@ def getAllUsers():
         else:
             return UserHandler().searchUsers(request.args)
 
+@users.route('/needed/', methods=['GET', 'POST'])
+def getAllUsersInneed():
+    if request.method=='GET':
+        return UserHandler().getAllUsersInneed()
+
 @users.route('/admin/', methods=['GET', 'POST'])
 def getAllAdminUsers():
     if request.method == 'POST':
