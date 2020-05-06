@@ -10,62 +10,22 @@ class ResourcesDAO:
         self.conn = psycopg2._connect(connection_url)
 
 
-    #4
-    def getAllRequests(self):
+    def getResourceRequestedByResourceID(self, resourceID):
         cursor = self.conn.cursor()
-        query = "select * from orders where orders.ord_id = order_requests_resource.ord_id;"
-        cursor.execute(query)
-        result = []
-        for row in cursor:
-            result.append(row)
-            print(row)
-            print("\n")
+        query = "select * from resource, order_requests_resource where resource.rid = %s AND order_requests_resource.rid=resource.rid AND order_requests_resource.needed = 1;"
+        cursor.execute(query, (resourceID,))
+        result = cursor.fetchone()
         return result
 
-    #6
-    def getPurchasesByID(self, userID):
-        cursor = self.conn.cursor()
-        query = "select * from orders, firstname, lastname from users, rid, rname from resource, price from order_buys_resource as buy" \
-                "where orders.uid = %d and users.uid = %d and orders.ord_id = buy.ord_id and buy.rid = resource.rid;"
-        cursor.execute(query, (userID,))
-        result = []
-        for row in cursor:
-            result.append(row)
-            print(row)
-            print("\n")
-        return result
-
-    def getReservesByID(self, userID):
-        cursor = self.conn.cursor()
-        query = "select * from orders, firstname, lastname from users, rid, rname from resource" \
-            "where orders.uid = %d and users.uid = %d and orders.ord_id = order_reserves_resource.ord_id and order_reserves_resource.rid = resource.rid;"
-        cursor.execute(query, (userID,))
-        result = []
-        for row in cursor:
-            result.append(row)
-            print(row)
-            print("\n")
-        return result
-
-    #6
-    def getRequestsByID(self, userID):
-        cursor = self.conn.cursor()
-        query = "select * from orders, firstname, lastname from users, rid, rname from resource" \
-            "where orders.uid = %d and users.uid = %d and orders.ord_id = order_requests_resource.ord_id and order_requests_resource.rid = resource.rid;"
-        cursor.execute(query, (userID,))
-        result = []
-        for row in cursor:
-            result.append(row)
-            print(row)
-            print("\n")
-        return result
 
     #7
     def getResourceRequestedByRequestID(self, resourceID, orderID):
         cursor = self.conn.cursor()
-        query = "select * from resource where resource.rid = %d AND order_requests_resource.ord_id = %d;"
-        cursor.execute(query, (resourceID,), (orderID,))
-        result = cursor.fetchone()
+        query = "select * from resource, order_requests_resource where resource.rid = %s AND order_requests_resource.rid=resource.rid AND order_requests_resource.ord_id=%s AND order_requests_resource.needed = 1;"
+        cursor.execute(query, (resourceID,orderID,))
+        result = []
+        for row in cursor:
+            result.append(row)
         return result
 
     #5,8
@@ -76,38 +36,34 @@ class ResourcesDAO:
         result = []
         for row in cursor:
             result.append(row)
-            print(row)
-            print("\n")
         return result
 
     #9
     def getResourceByID(self, resourceID):
         cursor = self.conn.cursor()
-        query = "select * from resource where resource.rid = %d;"
+        query = "select * from resource where resource.rid = %s;"
         cursor.execute(query, (resourceID,))
         result = cursor.fetchone()
         return result
 
     #10
     def getResourceRequestedByName(self, resourceName):
+        resourceName="%"+resourceName+"%"
         cursor = self.conn.cursor()
-        query = "select * from resource, order_requests_resource as req where resource.rid = req.rid and resource.name like %s and req.needed=1 order by resource.name ASC;"
+        query = "select * from resource, order_requests_resource as req where resource.rid = req.rid and resource.rname like %s  and req.needed=1 order by resource.rname ASC;"
         cursor.execute(query, (resourceName,))
         result = []
         for row in cursor:
             result.append(row)
-            print(row)
-            print("\n")
         return result
 
     #11
     def getResourceAvailableByName(self, resourceName):
+        resourceName = "%" + resourceName + "%"
         cursor = self.conn.cursor()
-        query = "select * from resource where resource.quantity > 0  and resource.name like %s order by resource.name ASC;"
+        query = "select * from resource where resource.quantity > 0  and resource.rname like %s order by resource.rname ASC;"
         cursor.execute(query, (resourceName,))
         result = []
         for row in cursor:
             result.append(row)
-            print(row)
-            print("\n")
         return result

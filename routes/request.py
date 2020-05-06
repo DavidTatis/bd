@@ -14,13 +14,28 @@ def getAllRequests():
             return RequestsHandler().searchRequests(request.args)
 
 
-@requests.route('/<int:req_id>', methods=['GET', 'PUT', 'DELETE'])
-def getRequestById(req_id):
+@requests.route('/user/<int:user_id>', methods=['GET', 'PUT', 'DELETE'])
+def getRequestsById(user_id):
     if request.method == 'GET':
-        return RequestsHandler().getRequestById(req_id)
+        return RequestsHandler().getRequestsByID(user_id)
     elif request.method == 'PUT':
         return jsonify(Message="Request update successful"), 200
     elif request.method == 'DELETE':
         return jsonify(Message="Request delete successful"), 200
+    else:
+        return jsonify(Error="Method not allowed."), 405
+
+@requests.route('/user/reserves/<int:user_id>', methods=['GET', 'PUT', 'DELETE'])
+def getReservesById(user_id):
+    if request.method == 'GET':
+        return RequestsHandler().getReservesByID(user_id)
+    else:
+        return jsonify(Error="Method not allowed."), 405
+
+
+@requests.route('/user/purchases/<int:user_id>', methods=['GET', 'PUT', 'DELETE'])
+def getPurchasesById(user_id):
+    if request.method == 'GET':
+        return RequestsHandler().getPurchasesById(user_id)
     else:
         return jsonify(Error="Method not allowed."), 405

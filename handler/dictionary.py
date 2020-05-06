@@ -78,6 +78,7 @@ class Dictionary:
 
     def build_resource_dict(self, row):
         result = {}
+        print("\n")
         result['rid'] = row[0]
         result['name'] = row[1]
         result['description'] = row[2]
@@ -89,7 +90,6 @@ class Dictionary:
         result['date'] = row[8]
         result['uid'] = row[9]
         result['initial_quantity'] = row[10]
-
         return result
 
     def build_organization_dict(self, row):
@@ -101,4 +101,41 @@ class Dictionary:
         result['zipcode'] = row[4]
         result['address'] = row[5]
 
+        return result
+
+    def build_purchases_dict(self,row):
+        result = {}
+        result['firstname'] = row[0]
+        result['lastname'] = row[1]
+        result['rid'] = row[2]
+        result['rname'] = row[3]
+        result['price'] = row[4]
+        result['ord_id'] = row[5]
+        result['quantity'] = row[6]
+        result['date'] = row[7]
+        result['uid'] = row[8]
+        return result
+
+    def build_requests_dict(self,row):
+        result = {}
+        result['firstname'] = row[0]
+        result['lastname'] = row[1]
+        result['rid'] = row[2]
+        result['rname'] = row[3]
+        result['ord_id'] = row[4]
+        result['quantity'] = row[5]
+        result['date'] = row[6]
+        result['uid'] = row[7]
+        return result
+
+    def build_reserves_dict(self, row):
+        result = {}
+        result['firstname'] = row[0]
+        result['lastname'] = row[1]
+        result['rid'] = row[2]
+        result['rname'] = row[3]
+        result['ord_id'] = row[4]
+        result['quantity'] = row[5]
+        result['date'] = row[6]
+        result['uid'] = row[7]
         return result

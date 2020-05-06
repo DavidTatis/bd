@@ -12,17 +12,39 @@ def getAllResources():
         else:
             return ResourcesHandler().searchResources(request.args)
 
+@resources.route('/available/', methods=['GET', 'POST'])
+def getAllResourcesAvailable():
+    if request.method == 'GET':
+        return ResourcesHandler().getAllResourcesAvailable()
+
+
 
 @resources.route('/<int:resource_id>', methods=['GET', 'PUT', 'DELETE'])
 def getResourceById(resource_id):
     if request.method == 'GET':
         return ResourcesHandler().getResourceById(resource_id)
-    elif request.method == 'PUT':
-        #ResourcesHandler().updateResource(resource_id,request.form)
-        return jsonify(Message="Resource update successful"), 200
-    elif request.method == 'DELETE':
-        #ResourcesHandler().deleteResource(resource_id)
-        return jsonify(Message="Resource delete successful"), 200
+    else:
+        return jsonify(Error="Method not allowed."), 405
+
+@resources.route('/requested/name/<string:rname>', methods=['GET', 'PUT', 'DELETE'])
+def getResourceRequestedByName(rname):
+    if request.method == 'GET':
+        return ResourcesHandler().getResourceRequestedByName(rname)
+    else:
+        return jsonify(Error="Method not allowed."), 405
+
+@resources.route('/available/name/<string:rname>', methods=['GET', 'PUT', 'DELETE'])
+def getResourceAvailableByName(rname):
+    if request.method == 'GET':
+        return ResourcesHandler().getResourceAvailableByName(rname)
+    else:
+        return jsonify(Error="Method not allowed."), 405
+
+
+@resources.route('/<int:rid>/order/<int:ord_id>', methods=['GET', 'PUT', 'DELETE'])
+def getResourceRequestedByRequestID(rid,ord_id):
+    if request.method == 'GET':
+        return ResourcesHandler().getResourceRequestedByRequestID(rid,ord_id)
     else:
         return jsonify(Error="Method not allowed."), 405
 

@@ -1,5 +1,6 @@
 from flask import jsonify
-
+from dao.resources import ResourcesDAO
+from handler.dictionary import Dictionary
 
 class ResourcesHandler:
     def getAllResources(self):
@@ -10,17 +11,72 @@ class ResourcesHandler:
         ]
         return jsonify(resources=resources), 200
 
+    def getAllResourcesAvailable(self):
+        dao = ResourcesDAO()
+        requests = dao.getAllResourcesAvailable()
+        dic = Dictionary()
+        result_list = []
+        for row in requests:
+            result = dic.build_resource_dict(row)
+            result_list.append(result)
+        return jsonify(Requests=result_list), 200
+
     def getResourceById(self, resource_id):
-        resources = [
-            {"resource_id":1, "quantity": 2, "description": 'Botellas de agua 13oz Dasani', "brand": 'Dasani', "price": 1.00, "lat": 18.0111, "long": 66.6141}
-        ]
-        return jsonify(Resources=resources), 200
+        dao = ResourcesDAO()
+        requests = dao.getResourceByID(resource_id)
+        dic = Dictionary()
+        result = dic.build_resource_dict(requests)
+        return jsonify(Requests=result), 200
+
+    def getResourceRequestedByName(self,rname):
+        dao = ResourcesDAO()
+        requests = dao.getResourceRequestedByName(rname)
+        dic = Dictionary()
+        result_list = []
+        for row in requests:
+            result = dic.build_resource_dict(row)
+            result_list.append(result)
+        return jsonify(Requests=result_list), 200
+
+    def getResourceAvailableByName(self,rname):
+        dao = ResourcesDAO()
+        requests = dao.getResourceAvailableByName(rname)
+        dic = Dictionary()
+        result_list = []
+        for row in requests:
+            result = dic.build_resource_dict(row)
+            result_list.append(result)
+        return jsonify(Requests=result_list), 200
 
     def searchResources(self, args):
         resources = [
             {"resource_id":1, "quantity": 2, "description": 'Botellas de agua 13oz Dasani', "brand": 'Dasani', "price": 1.00, "lat": 18.0111, "long": 66.6141}
         ]
         return jsonify(Resources=resources,Args=args), 200
+
+    def getResourceRequestedByRequestID(self,rid,ord_id):
+        dao = ResourcesDAO()
+        requests = dao.getResourceRequestedByRequestID(rid,ord_id)
+        dic = Dictionary()
+        result_list = []
+        for row in requests:
+            result = dic.build_resource_dict(row)
+            result_list.append(result)
+        return jsonify(Requests=result_list), 200
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     #=============== WATER ===========================
     def getAllWaterResources(self):
