@@ -14,11 +14,7 @@ Vagrant.configure("2") do |config|
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "hashicorp/bionic64"
   config.vm.provision :shell, path: "bootstrap.sh"
-  config.push.define "heroku" do |push|
-        push.app="disaster-relief-x"
-        push.dir="./"
-        push.remote="master"
-  end
+
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
