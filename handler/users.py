@@ -1,6 +1,7 @@
 from flask import jsonify
 from dao.users import UsersDAO
 from handler.dictionary import Dictionary
+#from flask.ext.bcrypt import generate_password_hash
 
 class UserHandler:
     def getAllUsers(self):
@@ -99,3 +100,23 @@ class UserHandler:
              "Address": 'Mayagüez', "Zipcode": 10966}
         ]
         return jsonify(Users=users,Args=args), 200
+
+    def createUserAdmin(self, form):
+        if form :
+            firstname = form['firstname']
+            lastname = form['lastname']
+            username = form['username']
+            password = form['password']
+            email = form['email']
+            phone = form['phone']
+            dateofbirth = form['dateofbirth']
+            address = form['address']
+            zipcode = form['zipcode']
+            salary = form['salary']
+            dao = UsersDAO()
+            uid = dao.insertAdmin(firstname, lastname, username,password,email,phone,dateofbirth,address,zipcode,salary)
+            result = {}
+            result["uid"] = uid
+            return jsonify(User=result), 201
+        else:
+            return jsonify(Message="Error"), 500
