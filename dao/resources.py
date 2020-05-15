@@ -67,3 +67,17 @@ class ResourcesDAO:
         for row in cursor:
             result.append(row)
         return result
+
+    def insertWater(self, rname, description, brand, quantity, price, latitude, longitude, date,
+                                  uid, initial_quantity, calories, speciality, ounces):
+        cursor = self.conn.cursor()
+        query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, date, " \
+                "uid, initial_quantity) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s) returning rid;"
+        cursor.execute(query, (rname, description, brand, quantity, price, latitude, longitude, date,
+                               uid, initial_quantity,))
+        rid = cursor.fetchone()[0]
+
+        query="insert into water(calories, speciality, ounces, rid) values (%s, %s, %s, %s)"
+        cursor.execute(query,(calories, speciality, ounces, rid,))
+        self.conn.commit()
+        return rid

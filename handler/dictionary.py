@@ -78,9 +78,8 @@ class Dictionary:
 
     def build_resource_dict(self, row):
         result = {}
-        print("\n")
         result['rid'] = row[0]
-        result['name'] = row[1]
+        result['rname'] = row[1]
         result['description'] = row[2]
         result['brand'] = row[3]
         result['quantity'] = row[4]
@@ -91,6 +90,24 @@ class Dictionary:
         result['uid'] = row[9]
         result['initial_quantity'] = row[10]
         return result
+
+    def build_resource_attributes(self, rid, rname, description, brand, quantity, price, latitude,
+                                  longitude, date, uid, initial_quantity):
+        result = {}
+        result['rid'] = rid
+        result['rname'] = rname
+        result['description'] = description
+        result['brand'] = brand
+        result['quantity'] = quantity
+        result['price'] = price
+        result['latitude'] = latitude
+        result['longitude'] = longitude
+        result['date'] = date
+        result['uid'] = uid
+        result['initial_quantity'] = initial_quantity
+
+        return result
+
 
     def build_organization_dict(self, row):
         result = {}

@@ -5,7 +5,8 @@ resources = Blueprint('resources', __name__)
 @resources.route('/', methods=['GET', 'POST'])
 def getAllResources():
     if request.method == 'POST':
-      return jsonify(Message="Resource created."), 200
+        #return ResourcesHandler().insertResourceJson(request.json)
+        return jsonify(Message="Resource created."), 200
     else:
         if not request.args:
             return ResourcesHandler().getAllResources()
@@ -54,7 +55,7 @@ def getResourceRequestedByRequestID(rid,ord_id):
 @resources.route('/water/', methods=['GET', 'POST'])
 def getAllWaterResources():
     if request.method == 'POST':
-      return jsonify(Message="Water Resource created."), 200
+        return ResourcesHandler().insertWater(request.get_json())
     else:
         if not request.args:
             return ResourcesHandler().getAllWaterResources()

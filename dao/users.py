@@ -58,8 +58,6 @@ class UsersDAO:
             result.append(row)
         return result
 
-
-
     def insertAdmin(self,firstname, lastname, username,password,email,phone,dateofbirth,address,zipcode,salary):
         cursor = self.conn.cursor()
         query = "insert into users(firstname, lastname, username,password,email,phone,dateofbirth,address,zipcode) values (%s, %s, %s, %s,%s, %s, %s,%s,%s) returning uid;"
