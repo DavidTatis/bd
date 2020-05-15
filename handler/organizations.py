@@ -25,3 +25,16 @@ class OrganizationsHandler:
         ]
         return jsonify(Organizations=organizations,Args=args), 200
 
+    def createOrganization(self,form):
+        if form:
+            name=form['name']
+            email = form['email']
+            phone = form['phone']
+            zipcode = form['zipcode']
+            address = form['address']
+            dao=OrganizationsDAO()
+            organization_id=dao.insert(name,email,phone,address,zipcode)
+            result = {}
+            result["organization_id"] = organization_id
+            return jsonify(Organization=result), 201
+
