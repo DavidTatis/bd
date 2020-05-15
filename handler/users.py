@@ -120,3 +120,28 @@ class UserHandler:
             return jsonify(User=result), 201
         else:
             return jsonify(Message="Error"), 500
+
+
+    def createUserSupplier(self, form):
+        return jsonify(Message="Error"), 500
+        # if form :
+        #     firstname = form['firstname']
+        #     lastname = form['lastname']
+        #     username = form['username']
+        #     password = form['password']
+        #     email = form['email']
+        #     phone = form['phone']
+        #     dateofbirth = form['dateofbirth']
+        #     address = form['address']
+        #     zipcode = form['zipcode']
+        #     country = form['country']
+        #     occupation = form['occupation']
+        #
+        #
+        #     dao = UsersDAO()
+        #     uid = dao.insertAdmin(firstname, lastname, username,password,email,phone,dateofbirth,address,zipcode,salary)
+        #     result = {}
+        #     result["uid"] = uid
+        #     return jsonify(User=result), 201
+        # else:
+        #     return jsonify(Message="Error"), 500

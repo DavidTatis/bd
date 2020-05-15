@@ -32,7 +32,7 @@ def getAllAdminUsers():
 def getAllSupplierUsers():
     if request.method == 'POST':
       #insert a user
-      return jsonify(Message="Supplier user created."), 201
+      return UserHandler().createUserSupplier(request.get_json())
     else:
         if not request.args:
             return UserHandler().getAllSupplierUsers()
