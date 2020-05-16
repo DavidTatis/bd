@@ -291,12 +291,13 @@ def getFuelResourceById(resource_id):
     elif request.method == 'DELETE':
         # ResourcesHandler().deleteFuelResource(resource_id)
         return jsonify(Message="Fuel Resource delete successful"), 200
+
 # ====================== CANNED FOOD ==============================
 
 @resources.route('/cannedFood/', methods=['GET', 'POST'])
 def getAllCannedFoodResources():
     if request.method == 'POST':
-        return jsonify(Message="Canned Food Resource created."), 200
+        return ResourcesHandler().insertCannedFood(request.get_json())
     else:
         if not request.args:
             return ResourcesHandler().getAllCannedFoodResources()
@@ -321,7 +322,7 @@ def getCannedFoodResourceById(resource_id):
 @resources.route('/dryFood/', methods=['GET', 'POST'])
 def getAllDryFoodResources():
     if request.method == 'POST':
-        return jsonify(Message="Dry Food Resource created."), 200
+        return ResourcesHandler().insertDryFood(request.get_json())
     else:
         if not request.args:
             return ResourcesHandler().getAllDryFoodResources()
@@ -346,7 +347,7 @@ def getDryFoodResourceById(resource_id):
 @resources.route('/babyFood/', methods=['GET', 'POST'])
 def getAllBabyFoodResources():
     if request.method == 'POST':
-        return jsonify(Message="Baby Food Resource created."), 200
+        return ResourcesHandler().insertBabyFood(request.get_json())
     else:
         if not request.args:
             return ResourcesHandler().getAllBabyFoodResources()
@@ -371,7 +372,7 @@ def getBabyFoodResourceById(resource_id):
 @resources.route('/medication/', methods=['GET', 'POST'])
 def getAllMedicationResources():
     if request.method == 'POST':
-        return jsonify(Message="Medication Resource created."), 200
+        return ResourcesHandler().insertMedication(request.get_json())
     else:
         if not request.args:
             return ResourcesHandler().getAllMedicationResources()

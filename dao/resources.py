@@ -81,3 +81,67 @@ class ResourcesDAO:
         cursor.execute(query,(calories, speciality, ounces, rid,))
         self.conn.commit()
         return rid
+
+    def insertCannedFood(self, rname, description, brand, quantity, price, latitude, longitude, date,
+                                  uid, initial_quantity, calories, nutritionfacts, size, foodtype):
+        cursor = self.conn.cursor()
+        query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, date, " \
+                "uid, initial_quantity) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s) returning rid;"
+        cursor.execute(query, (rname, description, brand, quantity, price, latitude, longitude, date,
+                               uid, initial_quantity,))
+        rid = cursor.fetchone()[0]
+
+        query="insert into cannedfood(calories, nutritionfacts, size, foodtype, rid) values " \
+              "(%s, %s, %s, %s, %s)"
+
+        cursor.execute(query,(calories, nutritionfacts, size,foodtype, rid,))
+        self.conn.commit()
+        return rid
+
+    def insertDryFood(self, rname, description, brand, quantity, price, latitude, longitude, date,
+                                  uid, initial_quantity, calories, nutritionfacts, size, foodtype):
+        cursor = self.conn.cursor()
+        query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, date, " \
+                "uid, initial_quantity) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s) returning rid;"
+        cursor.execute(query, (rname, description, brand, quantity, price, latitude, longitude, date,
+                               uid, initial_quantity,))
+        rid = cursor.fetchone()[0]
+
+        query="insert into dryfood(calories, nutritionfacts, size, foodtype, rid) values " \
+              "(%s, %s, %s, %s, %s)"
+
+        cursor.execute(query,(calories, nutritionfacts, size,foodtype, rid,))
+        self.conn.commit()
+        return rid
+
+    def insertBabyFood(self, rname, description, brand, quantity, price, latitude, longitude, date,
+                                  uid, initial_quantity, calories, nutritionfacts, size, foodtype):
+        cursor = self.conn.cursor()
+        query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, date, " \
+                "uid, initial_quantity) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s) returning rid;"
+        cursor.execute(query, (rname, description, brand, quantity, price, latitude, longitude, date,
+                               uid, initial_quantity,))
+        rid = cursor.fetchone()[0]
+
+        query="insert into babyfood(calories, nutritionfacts, size, foodtype, rid) values " \
+              "(%s, %s, %s, %s, %s)"
+
+        cursor.execute(query,(calories, nutritionfacts, size,foodtype, rid,))
+        self.conn.commit()
+        return rid
+
+    def insertMedication(self, rname, description, brand, quantity, price, latitude, longitude, date,
+                                  uid, initial_quantity, type, servingspercontainer):
+        cursor = self.conn.cursor()
+        query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, date, " \
+                "uid, initial_quantity) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s) returning rid;"
+        cursor.execute(query, (rname, description, brand, quantity, price, latitude, longitude, date,
+                               uid, initial_quantity,))
+        rid = cursor.fetchone()[0]
+
+        query="insert into medications(type, servingspercontainer, rid) values " \
+              "(%s, %s, %s)"
+
+        cursor.execute(query,(type, servingspercontainer, rid,))
+        self.conn.commit()
+        return rid
