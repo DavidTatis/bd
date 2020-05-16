@@ -20,3 +20,11 @@ class OrganizationsDAO:
         for row in cursor:
             result.append(row)
         return result
+
+    def insert(self,name,email,phone,address,zipcode):
+        cursor = self.conn.cursor()
+        query = "insert into organization(name,email,phone,address,zipcode) values (%s, %s, %s, %s,%s) returning org_id;"
+        cursor.execute(query, (name,email,phone,address,zipcode,))
+        org_id = cursor.fetchone()[0]
+        self.conn.commit()
+        return org_id

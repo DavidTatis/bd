@@ -123,25 +123,51 @@ class UserHandler:
 
 
     def createUserSupplier(self, form):
-        return jsonify(Message="Error"), 500
-        # if form :
-        #     firstname = form['firstname']
-        #     lastname = form['lastname']
-        #     username = form['username']
-        #     password = form['password']
-        #     email = form['email']
-        #     phone = form['phone']
-        #     dateofbirth = form['dateofbirth']
-        #     address = form['address']
-        #     zipcode = form['zipcode']
-        #     country = form['country']
-        #     occupation = form['occupation']
-        #
-        #
-        #     dao = UsersDAO()
-        #     uid = dao.insertAdmin(firstname, lastname, username,password,email,phone,dateofbirth,address,zipcode,salary)
-        #     result = {}
-        #     result["uid"] = uid
-        #     return jsonify(User=result), 201
-        # else:
-        #     return jsonify(Message="Error"), 500
+        if form :
+            firstname = form['firstname']
+            lastname = form['lastname']
+            username = form['username']
+            password = form['password']
+            email = form['email']
+            phone = form['phone']
+            dateofbirth = form['dateofbirth']
+            address = form['address']
+            zipcode = form['zipcode']
+            country = form['country']
+            occupation = form['occupation']
+            if (hasattr(form, 'org_id')):
+                org_id = form['org_id']
+            else:
+                org_id=None
+
+            dao = UsersDAO()
+
+            uid = dao.insertSupplier(firstname, lastname, username,password,email,phone,dateofbirth,address,zipcode,country,occupation,org_id)
+            result = {}
+            result["uid"] = uid
+            return jsonify(User=result), 201
+        else:
+            return jsonify(Message="Error"), 500
+
+    def createUserConsumer(self, form):
+        if form :
+            firstname = form['firstname']
+            lastname = form['lastname']
+            username = form['username']
+            password = form['password']
+            email = form['email']
+            phone = form['phone']
+            dateofbirth = form['dateofbirth']
+            address = form['address']
+            zipcode = form['zipcode']
+            if(hasattr(form,'priority')):
+                priority = form['priority']
+            else:
+                priority=None
+            dao = UsersDAO()
+            uid = dao.insertConsumer(firstname, lastname, username,password,email,phone,dateofbirth,address,zipcode,priority)
+            result = {}
+            result["uid"] = uid
+            return jsonify(User=result), 201
+        else:
+            return jsonify(Message="Error"), 500

@@ -60,11 +60,33 @@ class UsersDAO:
 
     def insertAdmin(self,firstname, lastname, username,password,email,phone,dateofbirth,address,zipcode,salary):
         cursor = self.conn.cursor()
-        query = "insert into users(firstname, lastname, username,password,email,phone,dateofbirth,address,zipcode) values (%s, %s, %s, %s,%s, %s, %s,%s,%s) returning uid;"
+        query = "insert into users(firstname, lastname, username,password,email,phone,dateofbirth,address,zipcode) values (%s, %s, %s, %s,%s, %s, %s,%s,%s) returning uid;" #TODO: glob variable
         cursor.execute(query, (firstname, lastname, username,password,email,phone,dateofbirth,address,zipcode,))
         uid = cursor.fetchone()[0]
 
         query="insert into admin(uid,salary) values (%s, %s)"
         cursor.execute(query,(uid,salary,))
+        self.conn.commit()
+        return uid
+
+    def insertSupplier(self, firstname, lastname, username,password,email,phone,dateofbirth,address,zipcode,country,occupation,org_id):
+        cursor = self.conn.cursor()
+        query = "insert into users(firstname, lastname, username,password,email,phone,dateofbirth,address,zipcode) values (%s, %s, %s, %s,%s, %s, %s,%s,%s) returning uid;"
+        cursor.execute(query, (firstname, lastname, username, password, email, phone, dateofbirth, address, zipcode,))
+        uid = cursor.fetchone()[0]
+
+        query = "insert into supplier(uid,country,occupation,org_id) values (%s,%s, %s,%s)"
+        cursor.execute(query, (uid,country,occupation,org_id))
+        self.conn.commit()
+        return uid
+
+    def insertConsumer(self, firstname, lastname, username,password,email,phone,dateofbirth,address,zipcode,priority):
+        cursor = self.conn.cursor()
+        query = "insert into users(firstname, lastname, username,password,email,phone,dateofbirth,address,zipcode) values (%s, %s, %s, %s,%s, %s, %s,%s,%s) returning uid;"
+        cursor.execute(query, (firstname, lastname, username, password, email, phone, dateofbirth, address, zipcode,))
+        uid = cursor.fetchone()[0]
+
+        query = "insert into consumer(uid,priority) values (%s,%s)"
+        cursor.execute(query, (uid,priority))
         self.conn.commit()
         return uid

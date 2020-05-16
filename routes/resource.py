@@ -224,7 +224,7 @@ def getHeavyEquipmentResourceById(resource_id):
 @resources.route('/ice/', methods=['GET', 'POST'])
 def getAllIceResources():
     if request.method == 'POST':
-        return jsonify(Message="Ice Resource created."), 200
+        return ResourcesHandler().insertIce(request.get_json())
     else:
         if not request.args:
             return ResourcesHandler().getAllIceResources()
@@ -249,7 +249,7 @@ def getIceResourceById(resource_id):
 @resources.route('/medicalDevice/', methods=['GET', 'POST'])
 def getAllMedicalDeviceResources():
     if request.method == 'POST':
-        return jsonify(Message="Medical Device Resource created."), 200
+        return ResourcesHandler().insertMedicalDevices(request.get_json())
     else:
         if not request.args:
             return ResourcesHandler().getAllMedicalDeviceResources()
@@ -274,7 +274,7 @@ def getMedicalDeviceResourceById(resource_id):
 @resources.route('/fuel/', methods=['GET', 'POST'])
 def getAllFuelResources():
     if request.method == 'POST':
-        return jsonify(Message="Fuel Resource created."), 200
+        return ResourcesHandler().insertFuel(request.get_json())
     else:
         if not request.args:
             return ResourcesHandler().getAllFuelResources()

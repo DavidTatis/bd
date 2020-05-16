@@ -5,7 +5,7 @@ organizations = Blueprint('organizations', __name__)
 @organizations.route('/', methods=['GET', 'POST'])
 def getAllOrganizations():
     if request.method == 'POST':
-      return jsonify(Message="Organization created."), 200
+        return OrganizationsHandler().createOrganization(request.get_json())
     else:
         if not request.args:
             return OrganizationsHandler().getAllOrganizations()

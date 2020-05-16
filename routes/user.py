@@ -43,7 +43,7 @@ def getAllSupplierUsers():
 def getAllConsumerUsers():
     if request.method == 'POST':
       #insert a user
-      return jsonify(Message="Consumer user created."), 201
+      return UserHandler().createUserConsumer(request.get_json())
     else:
         if not request.args:
             return UserHandler().getAllConsumerUsers()

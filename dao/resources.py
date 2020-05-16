@@ -145,3 +145,45 @@ class ResourcesDAO:
         cursor.execute(query,(type, servingspercontainer, rid,))
         self.conn.commit()
         return rid
+
+
+    def insertIce(self, rname, description, brand, quantity, price, latitude, longitude, date,
+                                  uid, initial_quantity, weight):
+        cursor = self.conn.cursor()
+        query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, date, " \
+                "uid, initial_quantity) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s) returning rid;"
+        cursor.execute(query, (rname, description, brand, quantity, price, latitude, longitude, date,
+                               uid, initial_quantity,))
+        rid = cursor.fetchone()[0]
+
+        query="insert into ice(weight,rid) values (%s, %s)"
+        cursor.execute(query,(weight, rid,))
+        self.conn.commit()
+        return rid
+
+    def insertMedicalDevices(self, rname, description, brand, quantity, price, latitude, longitude, date,
+                                  uid, initial_quantity, type):
+        cursor = self.conn.cursor()
+        query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, date, " \
+                "uid, initial_quantity) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s) returning rid;"
+        cursor.execute(query, (rname, description, brand, quantity, price, latitude, longitude, date,
+                               uid, initial_quantity,))
+        rid = cursor.fetchone()[0]
+
+        query="insert into medicaldevices(type,rid) values (%s, %s)"
+        cursor.execute(query,(type, rid,))
+        self.conn.commit()
+        return rid
+
+    def insertFuel(self,rname, description, brand, quantity, price, latitude, longitude, date, uid, initial_quantity, type,amount):
+        cursor = self.conn.cursor()
+        query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, date, " \
+                "uid, initial_quantity) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s) returning rid;"
+        cursor.execute(query, (rname, description, brand, quantity, price, latitude, longitude, date,
+                               uid, initial_quantity,))
+        rid = cursor.fetchone()[0]
+
+        query = "insert into fuel(type,amount,rid) values (%s,%s, %s)"
+        cursor.execute(query, (type,amount, rid,))
+        self.conn.commit()
+        return rid
