@@ -11,6 +11,34 @@ class ResourcesHandler:
         ]
         return jsonify(resources=resources), 200
 
+    def insertWater(self, json):
+
+        rname = json['rname']
+        description = json['description']
+        brand = json['brand']
+        quantity = json['quantity']
+        price = json['price']
+        latitude = json['latitude']
+        longitude = json['longitude']
+        date = json['date']
+        uid = json['uid']
+        initial_quantity = json['initial_quantity']
+        calories = json['calories']
+        speciality = json['speciality']
+        ounces = json['ounces']
+
+        if rname and description and brand and quantity and price and latitude and longitude and date and uid \
+                and initial_quantity and calories and speciality and ounces:
+            dao = ResourcesDAO()
+            rid = dao.insertWater(rname, description, brand, quantity, price, latitude, longitude, date,
+                                  uid, initial_quantity, calories, speciality, ounces)
+            dic = Dictionary()
+            result = dic.build_resource_attributes\
+                (rid, rname, description, brand, quantity, price, latitude, longitude, date, uid, initial_quantity)
+            return jsonify(Resource=result), 201
+        else:
+            return jsonify(Error="Unexpected attributes in post request"), 400
+
     def getAllResourcesAvailable(self):
         dao = ResourcesDAO()
         requests = dao.getAllResourcesAvailable()
@@ -63,20 +91,6 @@ class ResourcesHandler:
             result = dic.build_resource_dict(row)
             result_list.append(result)
         return jsonify(Requests=result_list), 200
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     #=============== WATER ===========================
     def getAllWaterResources(self):
