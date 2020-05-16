@@ -11,6 +11,76 @@ class ResourcesHandler:
         ]
         return jsonify(resources=resources), 200
 
+    def insertFuel(self, json):
+        if json:
+            rname = json['rname']
+            description = json['description']
+            brand = json['brand']
+            quantity = json['quantity']
+            price = json['price']
+            latitude = json['latitude']
+            longitude = json['longitude']
+            date = json['date']
+            uid = json['uid']
+            initial_quantity = json['initial_quantity']
+            type = json['type']
+            amount = json['amount']
+            dao = ResourcesDAO()
+            rid = dao.insertFuel(rname, description, brand, quantity, price, latitude, longitude, date,
+                                  uid, initial_quantity, type,amount)
+            dic = Dictionary()
+            result = dic.build_resource_attributes\
+                (rid, rname, description, brand, quantity, price, latitude, longitude, date, uid, initial_quantity)
+            return jsonify(Resource=result), 201
+        else:
+            return jsonify(Error="Unexpected attributes in post request"), 400
+
+    def insertMedicalDevices(self, json):
+        if json:
+            rname = json['rname']
+            description = json['description']
+            brand = json['brand']
+            quantity = json['quantity']
+            price = json['price']
+            latitude = json['latitude']
+            longitude = json['longitude']
+            date = json['date']
+            uid = json['uid']
+            initial_quantity = json['initial_quantity']
+            type = json['type']
+            dao = ResourcesDAO()
+            rid = dao.insertMedicalDevices(rname, description, brand, quantity, price, latitude, longitude, date,
+                                  uid, initial_quantity, type)
+            dic = Dictionary()
+            result = dic.build_resource_attributes\
+                (rid, rname, description, brand, quantity, price, latitude, longitude, date, uid, initial_quantity)
+            return jsonify(Resource=result), 201
+        else:
+            return jsonify(Error="Unexpected attributes in post request"), 400
+
+    def insertIce(self, json):
+        if json:
+            rname = json['rname']
+            description = json['description']
+            brand = json['brand']
+            quantity = json['quantity']
+            price = json['price']
+            latitude = json['latitude']
+            longitude = json['longitude']
+            date = json['date']
+            uid = json['uid']
+            initial_quantity = json['initial_quantity']
+            weight = json['weight']
+            dao = ResourcesDAO()
+            rid = dao.insertIce(rname, description, brand, quantity, price, latitude, longitude, date,
+                                  uid, initial_quantity, weight)
+            dic = Dictionary()
+            result = dic.build_resource_attributes\
+                (rid, rname, description, brand, quantity, price, latitude, longitude, date, uid, initial_quantity)
+            return jsonify(Resource=result), 201
+        else:
+            return jsonify(Error="Unexpected attributes in post request"), 400
+
     def insertWater(self, json):
 
         rname = json['rname']
