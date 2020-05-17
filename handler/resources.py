@@ -1,7 +1,7 @@
 from flask import jsonify
 from dao.resources import ResourcesDAO
 from handler.dictionary import Dictionary
-
+from time import time
 class ResourcesHandler:
     def getAllResources(self):
         resources = [
@@ -63,6 +63,64 @@ class ResourcesHandler:
             result = dic.build_resource_dict(row)
             result_list.append(result)
         return jsonify(Requests=result_list), 200
+
+    def buyResources(self,json):
+        try:
+            uid = json['uid']
+            rids = json['rids']
+            quantities=json['quantities']
+            method=json['method']
+            date_milliseconds = int(time() * 1000)
+            if(len(quantities)!=len(rids)):
+                return jsonify(Error="Resources and quantities do not match."), 400
+        except:
+            return jsonify(Error="Missing attributes."), 400
+
+        dao=ResourcesDAO()
+        response=dao.buyResources(uid,rids,quantities,date_milliseconds,method)
+        if response:
+            return jsonify(Message="Purchases successfully created"), 200
+        else:
+            return jsonify(Error="There are not enough resources."), 400
+
+    def reserveResources(self,json):
+        try:
+            uid = json['uid']
+            rids = json['rids']
+            quantities=json['quantities']
+            date_milliseconds = int(time() * 1000)
+            if(len(quantities)!=len(rids)):
+                return jsonify(Error="Resources and quantities do not match."), 400
+        except:
+            return jsonify(Error="Missing attributes."), 400
+
+        dao=ResourcesDAO()
+        response=dao.reserveResources(uid,rids,quantities,date_milliseconds)
+        if response==0:
+            return jsonify(Message="Reserves created successfully"), 200
+        elif response==1:
+            return jsonify(Error="Only free resources can be reserved."), 400
+        elif response==2:
+            return jsonify(Error="There are not enough resources."), 400
+
+    def requestResources(self,json):
+        try:
+            uid = json['uid']
+            rids = json['rids']
+            quantities=json['quantities']
+            date_milliseconds = int(time() * 1000)
+            if(len(quantities)!=len(rids)):
+                return jsonify(Error="Resources and quantities do not match."), 400
+        except:
+            return jsonify(Error="Missing attributes."), 400
+
+        dao=ResourcesDAO()
+        response=dao.requestResources(uid,rids,quantities,date_milliseconds)
+        if response==0:
+            return jsonify(Message="Requests created successfully"), 200
+        elif response==2:
+            return jsonify(Error="You cant request this resource."), 400
+
 
     #=============== WATER ===========================
     def getAllWaterResources(self):

@@ -1,6 +1,7 @@
 from flask import Blueprint, request,jsonify
 from handler.resources import ResourcesHandler
 resources = Blueprint('resources', __name__)
+
 #====================== RESOURCE ==============================
 @resources.route('/', methods=['GET', 'POST'])
 def getAllResources():
@@ -26,6 +27,28 @@ def getResourceById(resource_id):
         return ResourcesHandler().getResourceById(resource_id)
     else:
         return jsonify(Error="Method not allowed."), 405
+
+@resources.route('/buy/', methods=['POST'])
+def buyResources():
+    if request.method=='POST':
+        return ResourcesHandler().buyResources(request.get_json());
+    else:
+        return jsonify(Error="Method not allowed."), 405
+
+@resources.route('/reserve/', methods=['POST'])
+def reserveResources():
+    if request.method=='POST':
+        return ResourcesHandler().reserveResources(request.get_json());
+    else:
+        return jsonify(Error="Method not allowed."), 405
+
+@resources.route('/request/', methods=['POST'])
+def requestResources():
+    if request.method=='POST':
+        return ResourcesHandler().requestResources(request.get_json());
+    else:
+        return jsonify(Error="Method not allowed."), 405
+
 
 @resources.route('/requested/name/<string:rname>', methods=['GET', 'PUT', 'DELETE'])
 def getResourceRequestedByName(rname):
