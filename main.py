@@ -15,17 +15,17 @@ app = Flask(__name__)
 # Apply CORS to this app
 CORS(app)
 
-app.register_blueprint(users, url_prefix='/Supply/users')
-app.register_blueprint(orders, url_prefix='/Supply/orders')
-app.register_blueprint(organizations, url_prefix='/Supply/organizations')
-app.register_blueprint(resources, url_prefix='/Supply/resources')
-app.register_blueprint(payments, url_prefix='/Supply/payments')
-app.register_blueprint(requests, url_prefix='/Supply/requests')
+app.register_blueprint(users, url_prefix='/aid/users')
+app.register_blueprint(orders, url_prefix='/aid/orders')
+app.register_blueprint(organizations, url_prefix='/aid/organizations')
+app.register_blueprint(resources, url_prefix='/aid/resources')
+app.register_blueprint(payments, url_prefix='/aid/payments')
+app.register_blueprint(requests, url_prefix='/aid/requests')
 
 
 @app.route('/')
 def greeting():
-    return 'Hello, this is the parts DB App!'
+    return 'Hello, this is the Disaster Aid DB App!'
 
 
 if __name__ == '__main__':

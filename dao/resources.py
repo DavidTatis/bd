@@ -190,7 +190,7 @@ class ResourcesDAO:
 
     def buyResources(self,uid,rids,quantities,date_milliseconds,method):
         cursor = self.conn.cursor()
-        quantityError=False
+
         for i in range(0,len(rids)):#FOR EACH RESOURCE THAT THE USER BUYS
             query= "select rid,quantity,cast(price as NUMERIC) from resource where rid=%s" #SELECT THE INFO OF THE RESOURCE
             cursor.execute(query, (rids[i],))
@@ -208,17 +208,15 @@ class ResourcesDAO:
                 cursor.execute(queryUpdateResource,(newResourceQty,rids[i])) #UPDATE THE QUANTITY OF THE RESOURCE AFTER BUY
                 if(price==0): #IF THE PRICE IS 0, CREATE IT IN THE TABLE OF RESERVES
                     queryBuy = "insert into order_reserves_resource(ord_id,rid) values (%s,%s);"
-                    cursor.execute(queryBuy, (ord_id, rids[i]))  # CREATE THE ORDER_RESERVEA_RESOURCE
+                    cursor.execute(queryBuy, (ord_id, rids[i]))  # CREATE THE ORDER_RESERVES_RESOURCE
                 else:
                     queryBuy="insert into order_buys_resource(ord_id,rid,price) values (%s,%s,%s);"
                     cursor.execute(queryBuy,(ord_id,rids[i],amount))#CREATE THE ORDER_BUY_RESOURCE
             else:
-                quantityError=True
-        if(not quantityError):
-            self.conn.commit()
-            return True
-        else:
-            return False
+                return 2
+
+        self.conn.commit()
+        return 0
 
     def reserveResources(self,uid,rids,quantities,date_milliseconds):
         cursor = self.conn.cursor()
@@ -237,18 +235,17 @@ class ResourcesDAO:
                 queryUpdateResource="update resource SET quantity=%s where rid=%s;"
                 cursor.execute(queryUpdateResource,(newResourceQty,rids[i])) #UPDATE THE QUANTITY OF THE RESOURCE AFTER RESERVE
                 queryBuy="insert into order_reserves_resource(ord_id,rid) values (%s,%s);"
-                cursor.execute(queryBuy,(ord_id,rids[i]))#CREATE THE ORDER_RESERVEA_RESOURCE
+                cursor.execute(queryBuy,(ord_id,rids[i]))#CREATE THE ORDER_RESERVES RESOURCE
             else:
-                quantityError=True
-        if(not quantityError):
-            self.conn.commit()
-            return 0
-        else:
-            return 2
+                return 2
+
+        self.conn.commit()
+        return 0
+
 
     def requestResources(self,uid,rids,quantities,date_milliseconds):
         cursor = self.conn.cursor()
-        quantityError=False
+
         for i in range(0,len(rids)):#FOR EACH RESOURCE THAT THE USER RESERVES
             query= "select rid,quantity from resource where rid=%s" #SELECT THE INFO OF THE RESOURCE
             cursor.execute(query, (rids[i],))
@@ -259,11 +256,9 @@ class ResourcesDAO:
                 cursor.execute(queryOrder,(quantities[i],date_milliseconds,uid))
                 ord_id=cursor.fetchone()[0]#GET THE ID OF THE ORDER CREATED
                 queryBuy="insert into order_requests_resource(ord_id,rid,needed) values (%s,%s,%s);"
-                cursor.execute(queryBuy,(ord_id,rids[i],1,))#CREATE THE ORDER_RESERVEA_RESOURCE
+                cursor.execute(queryBuy,(ord_id,rids[i],1,))#CREATE THE ORDER_REQUESTS_RESOURCE
             else:
-                quantityError=True
-        if(not quantityError):
-            self.conn.commit()
-            return 0
-        else:
-            return 2
+                return 2
+
+        self.conn.commit()
+        return 0
