@@ -79,7 +79,7 @@ class ResourcesHandler:
         dao=ResourcesDAO()
         response=dao.buyResources(uid,rids,quantities,date_milliseconds,method)
 
-        if response:
+        if response == 0:
             return jsonify(Message="Purchases successfully created"), 200
         else:
             return jsonify(Error="There are not enough resources."), 400
