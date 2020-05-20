@@ -19,8 +19,6 @@ def getAllResourcesAvailable():
     if request.method == 'GET':
         return ResourcesHandler().getAllResourcesAvailable()
 
-
-
 @resources.route('/<int:resource_id>', methods=['GET', 'PUT', 'DELETE'])
 def getResourceById(resource_id):
     if request.method == 'GET':

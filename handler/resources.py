@@ -550,14 +550,14 @@ class ResourcesHandler:
         initial_quantity = json['initial_quantity']
         calories = json['calories']
         nutritionfacts = json['nutritionfacts']
-        size = json['size']
+        bsize = json['bsize']
         foodtype = json['foodtype']
 
         if rname and description and brand and quantity and price and latitude and longitude and date and uid \
-                and initial_quantity and calories and nutritionfacts and size and foodtype:
+                and initial_quantity and calories and nutritionfacts and bsize and foodtype:
             dao = ResourcesDAO()
             rid = dao.insertBabyFood(rname, description, brand, quantity, price, latitude, longitude, date,
-                                       uid, initial_quantity, calories, nutritionfacts, size, foodtype)
+                                       uid, initial_quantity, calories, nutritionfacts, bsize, foodtype)
             dic = Dictionary()
             result = dic.build_resource_attributes\
                 (rid, rname, description, brand, quantity, price, latitude, longitude, date, uid, initial_quantity)

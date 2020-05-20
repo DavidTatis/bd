@@ -9,14 +9,12 @@ class ResourcesDAO:
                                                             pg_config['port'])
         self.conn = psycopg2._connect(connection_url)
 
-
     def getResourceRequestedByResourceID(self, resourceID):
         cursor = self.conn.cursor()
         query = "select * from resource, order_requests_resource where resource.rid = %s AND order_requests_resource.rid=resource.rid AND order_requests_resource.needed = 1;"
         cursor.execute(query, (resourceID,))
         result = cursor.fetchone()
         return result
-
 
     #7
     def getResourceRequestedByRequestID(self, resourceID, orderID):
@@ -115,7 +113,7 @@ class ResourcesDAO:
         return rid
 
     def insertBabyFood(self, rname, description, brand, quantity, price, latitude, longitude, date,
-                                  uid, initial_quantity, calories, nutritionfacts, size, foodtype):
+                                  uid, initial_quantity, calories, nutritionfacts, bsize, foodtype):
         cursor = self.conn.cursor()
         query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, date, " \
                 "uid, initial_quantity) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s) returning rid;"
@@ -123,10 +121,10 @@ class ResourcesDAO:
                                uid, initial_quantity,))
         rid = cursor.fetchone()[0]
 
-        query="insert into babyfood(calories, nutritionfacts, size, foodtype, rid) values " \
+        query="insert into babyfood(calories, nutritionfacts, bsize, foodtype, rid) values " \
               "(%s, %s, %s, %s, %s)"
 
-        cursor.execute(query,(calories, nutritionfacts, size,foodtype, rid,))
+        cursor.execute(query,(calories, nutritionfacts, bsize,foodtype, rid,))
         self.conn.commit()
         return rid
 
@@ -145,7 +143,6 @@ class ResourcesDAO:
         cursor.execute(query,(type, servingspercontainer, rid,))
         self.conn.commit()
         return rid
-
 
     def insertIce(self, rname, description, brand, quantity, price, latitude, longitude, date,
                                   uid, initial_quantity, weight):
@@ -190,16 +187,23 @@ class ResourcesDAO:
 
     def buyResources(self,uid,rids,quantities,date_milliseconds,method):
         cursor = self.conn.cursor()
+        amount = 0
+        for i in range(0,len(rids)):#FOR EACH RESOURCE THAT THE USER BUYS
+            query= "select rid,quantity,cast(price as NUMERIC) from resource where rid=%s" #SELECT THE INFO OF THE RESOURCE
+            cursor.execute(query, (rids[i],))
+            rid,qty,price= cursor.fetchone()
+            if(qty>=quantities[i]): #VALIDATION OF QUANTITY
+                amount+=price*quantities[i] #CALCULATE THE PAYMENT AMOUNT QUANTITY*PRICE
+        queryPayment = "insert into payment(method,amount,date,uid) values (%s,%s,%s,%s) returning pay_id;"
+        cursor.execute(queryPayment, (method, amount, date_milliseconds, uid,))
+        pay_id = cursor.fetchone()[0]  # GET THE ID OF THE CREATED PAYMENT
 
         for i in range(0,len(rids)):#FOR EACH RESOURCE THAT THE USER BUYS
             query= "select rid,quantity,cast(price as NUMERIC) from resource where rid=%s" #SELECT THE INFO OF THE RESOURCE
             cursor.execute(query, (rids[i],))
             rid,qty,price= cursor.fetchone()
             if(qty>=quantities[i]): #VALIDATION OF QUANTITY
-                amount=price*quantities[i] #CALCULATE THE PAYMENT AMOUNT QUANTITY*PRICE
-                queryPayment="insert into payment(method,amount,date,uid) values (%s,%s,%s,%s) returning pay_id;"
-                cursor.execute(queryPayment,(method,amount,date_milliseconds,uid,))
-                pay_id=cursor.fetchone()[0] #GET THE ID OF THE CREATED PAYMENT
+                amount = price * quantities[i]  # CALCULATE THE PAYMENT AMOUNT QUANTITY*PRICE
                 queryOrder="insert into orders(quantity, date, pay_id,uid) values (%s,%s,%s,%s) returning ord_id;"
                 cursor.execute(queryOrder,(quantities[i],date_milliseconds,pay_id,uid))
                 ord_id=cursor.fetchone()[0]#GET THE ID OF THE ORDER CREATED
