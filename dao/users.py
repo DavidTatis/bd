@@ -9,8 +9,6 @@ class UsersDAO:
                                                             pg_config['port'])
         self.conn = psycopg2._connect(connection_url)
 
-
-
     def getAllUsers(self):
         cursor = self.conn.cursor()
         query = "select * from users"
@@ -60,7 +58,7 @@ class UsersDAO:
 
     def insertAdmin(self,firstname, lastname, username,password,email,phone,dateofbirth,address,zipcode,salary):
         cursor = self.conn.cursor()
-        query = "insert into users(firstname, lastname, username,password,email,phone,dateofbirth,address,zipcode) values (%s, %s, %s, %s,%s, %s, %s,%s,%s) returning uid;" #TODO: glob variable
+        query = "insert into users(first_name, last_name, username,password,email,phone,date_of_birth,address,zipcode) values (%s, %s, %s, %s,%s, %s, %s,%s,%s) returning uid;"
         cursor.execute(query, (firstname, lastname, username,password,email,phone,dateofbirth,address,zipcode,))
         uid = cursor.fetchone()[0]
 
@@ -71,7 +69,7 @@ class UsersDAO:
 
     def insertSupplier(self, firstname, lastname, username,password,email,phone,dateofbirth,address,zipcode,country,occupation,org_id):
         cursor = self.conn.cursor()
-        query = "insert into users(firstname, lastname, username,password,email,phone,dateofbirth,address,zipcode) values (%s, %s, %s, %s,%s, %s, %s,%s,%s) returning uid;"
+        query = "insert into users(first_name, last_name, username,password,email,phone,date_of_birth,address,zipcode) values (%s, %s, %s, %s,%s, %s, %s,%s,%s) returning uid;"
         cursor.execute(query, (firstname, lastname, username, password, email, phone, dateofbirth, address, zipcode,))
         uid = cursor.fetchone()[0]
 
@@ -82,7 +80,7 @@ class UsersDAO:
 
     def insertConsumer(self, firstname, lastname, username,password,email,phone,dateofbirth,address,zipcode,priority):
         cursor = self.conn.cursor()
-        query = "insert into users(firstname, lastname, username,password,email,phone,dateofbirth,address,zipcode) values (%s, %s, %s, %s,%s, %s, %s,%s,%s) returning uid;"
+        query = "insert into users(first_name, last_name, username,password,email,phone,date_of_birth,address,zipcode) values (%s, %s, %s, %s,%s, %s, %s,%s,%s) returning uid;"
         cursor.execute(query, (firstname, lastname, username, password, email, phone, dateofbirth, address, zipcode,))
         uid = cursor.fetchone()[0]
 

@@ -347,7 +347,7 @@ class ResourcesHandler:
         ]
         return jsonify(Resources=resources,Args=args), 200
 
-    def insertMedicalDevices(self, json):
+    def insertMedicalDevice(self, json):
         if json:
             rname = json['rname']
             description = json['description']
@@ -361,7 +361,7 @@ class ResourcesHandler:
             initial_quantity = json['initial_quantity']
             type = json['type']
             dao = ResourcesDAO()
-            rid = dao.insertMedicalDevices(rname, description, brand, quantity, price, latitude, longitude, date,
+            rid = dao.insertMedicalDevice(rname, description, brand, quantity, price, latitude, longitude, date,
                                   uid, initial_quantity, type)
             dic = Dictionary()
             result = dic.build_resource_attributes\
@@ -550,14 +550,14 @@ class ResourcesHandler:
         initial_quantity = json['initial_quantity']
         calories = json['calories']
         nutritionfacts = json['nutritionfacts']
-        bsize = json['bsize']
+        size = json['size']
         foodtype = json['foodtype']
 
         if rname and description and brand and quantity and price and latitude and longitude and date and uid \
-                and initial_quantity and calories and nutritionfacts and bsize and foodtype:
+                and initial_quantity and calories and nutritionfacts and size and foodtype:
             dao = ResourcesDAO()
             rid = dao.insertBabyFood(rname, description, brand, quantity, price, latitude, longitude, date,
-                                       uid, initial_quantity, calories, nutritionfacts, bsize, foodtype)
+                                       uid, initial_quantity, calories, nutritionfacts, size, foodtype)
             dic = Dictionary()
             result = dic.build_resource_attributes\
                 (rid, rname, description, brand, quantity, price, latitude, longitude, date, uid, initial_quantity)
