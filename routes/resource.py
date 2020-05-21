@@ -26,6 +26,13 @@ def getResourceById(resource_id):
     else:
         return jsonify(Error="Method not allowed."), 405
 
+@resources.route('/details/<int:resource_id>', methods=['GET'])
+def getResourceDetailById(resource_id):
+    if request.method == 'GET':
+        return ResourcesHandler().getResourceDetailById(resource_id)
+    else:
+        return jsonify(Error="Method not allowed."), 405
+
 @resources.route('/buy/', methods=['POST'])
 def buyResources():
     if request.method=='POST':

@@ -44,6 +44,20 @@ class ResourcesDAO:
         result = cursor.fetchone()
         return result
 
+    def getResourceDetailByID(self, resourceID):
+        cursor = self.conn.cursor()
+        query = "select cat_id from resource where resource.rid = %s;"
+        cursor.execute(query, (resourceID,))
+        catId = cursor.fetchone()[0]
+        query = "select cat_table_name from category where category.cat_id = %s"
+        cursor.execute(query, (catId,))
+        catTableName = cursor.fetchone()[0]
+
+        query = "select * from resource, %s as c where c.rid = %%s and resource.rid = %%s;"
+        cursor.execute(query % catTableName, (resourceID, resourceID,))
+        result = cursor.fetchone()
+        return result
+
     #10
     def getResourceRequestedByName(self, resourceName):
         resourceName="%"+resourceName+"%"
@@ -67,12 +81,15 @@ class ResourcesDAO:
         return result
 
     def insertWater(self, rname, description, brand, quantity, price, latitude, longitude, date,
-                                  uid, initial_quantity, calories, speciality, ounces):
+                                  uid, initial_quantity, calories, speciality, ounces, category):
         cursor = self.conn.cursor()
+        query = "select cat_id from category where category.cat_name = %s"
+        cursor.execute(query, (category,))
+        catId = cursor.fetchone()[0]
         query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, rdate, " \
-                "uid, initial_quantity) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s) returning rid;"
+                "uid, initial_quantity, cat_id) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s, %s) returning rid;"
         cursor.execute(query, (rname, description, brand, quantity, price, latitude, longitude, date,
-                               uid, initial_quantity,))
+                               uid, initial_quantity,catId,))
         rid = cursor.fetchone()[0]
 
         query="insert into water(calories, speciality, ounces, rid) values (%s, %s, %s, %s)"
@@ -81,12 +98,15 @@ class ResourcesDAO:
         return rid
 
     def insertCannedFood(self, rname, description, brand, quantity, price, latitude, longitude, date,
-                                  uid, initial_quantity, calories, nutritionfacts, size, foodtype):
+                                  uid, initial_quantity, calories, nutritionfacts, size, foodtype, category):
         cursor = self.conn.cursor()
+        query = "select cat_id from category where category.cat_name = %s"
+        cursor.execute(query, (category,))
+        catId = cursor.fetchone()[0]
         query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, rdate, " \
-                "uid, initial_quantity) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s) returning rid;"
+                "uid, initial_quantity, cat_id) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s, %s) returning rid;"
         cursor.execute(query, (rname, description, brand, quantity, price, latitude, longitude, date,
-                               uid, initial_quantity,))
+                               uid, initial_quantity, catId,))
         rid = cursor.fetchone()[0]
 
         query="insert into canned_food(calories, nutrition_facts, cfsize, food_type, rid) values " \
@@ -97,12 +117,15 @@ class ResourcesDAO:
         return rid
 
     def insertDryFood(self, rname, description, brand, quantity, price, latitude, longitude, date,
-                                  uid, initial_quantity, calories, nutritionfacts, size, foodtype):
+                                  uid, initial_quantity, calories, nutritionfacts, size, foodtype, category):
         cursor = self.conn.cursor()
+        query = "select cat_id from category where category.cat_name = %s"
+        cursor.execute(query, (category,))
+        catId = cursor.fetchone()[0]
         query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, rdate, " \
-                "uid, initial_quantity) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s) returning rid;"
+                "uid, initial_quantity, cat_id) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s, %s) returning rid;"
         cursor.execute(query, (rname, description, brand, quantity, price, latitude, longitude, date,
-                               uid, initial_quantity,))
+                               uid, initial_quantity, catId,))
         rid = cursor.fetchone()[0]
 
         query="insert into dry_food(calories, nutrition_facts, dfsize, food_type, rid) values " \
@@ -113,12 +136,15 @@ class ResourcesDAO:
         return rid
 
     def insertBabyFood(self, rname, description, brand, quantity, price, latitude, longitude, date,
-                                  uid, initial_quantity, calories, nutritionfacts, size, foodtype):
+                                  uid, initial_quantity, calories, nutritionfacts, size, foodtype, category):
         cursor = self.conn.cursor()
+        query = "select cat_id from category where category.cat_name = %s"
+        cursor.execute(query, (category,))
+        catId = cursor.fetchone()[0]
         query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, rdate, " \
-                "uid, initial_quantity) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s) returning rid;"
+                "uid, initial_quantity, cat_id) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s, %s) returning rid;"
         cursor.execute(query, (rname, description, brand, quantity, price, latitude, longitude, date,
-                               uid, initial_quantity,))
+                               uid, initial_quantity, catId,))
         rid = cursor.fetchone()[0]
 
         query="insert into baby_food(calories, nutrition_facts, bfsize, food_type, rid) values " \
@@ -129,12 +155,15 @@ class ResourcesDAO:
         return rid
 
     def insertMedication(self, rname, description, brand, quantity, price, latitude, longitude, date,
-                                  uid, initial_quantity, type, servingspercontainer):
+                                  uid, initial_quantity, type, servingspercontainer, category):
         cursor = self.conn.cursor()
+        query = "select cat_id from category where category.cat_name = %s"
+        cursor.execute(query, (category,))
+        catId = cursor.fetchone()[0]
         query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, rdate, " \
-                "uid, initial_quantity) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s) returning rid;"
+                "uid, initial_quantity, cat_id) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s, %s) returning rid;"
         cursor.execute(query, (rname, description, brand, quantity, price, latitude, longitude, date,
-                               uid, initial_quantity,))
+                               uid, initial_quantity, catId,))
         rid = cursor.fetchone()[0]
 
         query="insert into medication(mtype, servings_per_container, rid) values " \
@@ -145,12 +174,15 @@ class ResourcesDAO:
         return rid
 
     def insertIce(self, rname, description, brand, quantity, price, latitude, longitude, date,
-                                  uid, initial_quantity, weight):
+                                  uid, initial_quantity, weight, category):
         cursor = self.conn.cursor()
+        query = "select cat_id from category where category.cat_name = %s"
+        cursor.execute(query, (category,))
+        catId = cursor.fetchone()[0]
         query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, rdate, " \
-                "uid, initial_quantity) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s) returning rid;"
+                "uid, initial_quantity, cat_id) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s, %s) returning rid;"
         cursor.execute(query, (rname, description, brand, quantity, price, latitude, longitude, date,
-                               uid, initial_quantity,))
+                               uid, initial_quantity, catId,))
         rid = cursor.fetchone()[0]
 
         query="insert into ice(weight,rid) values (%s, %s)"
@@ -159,12 +191,15 @@ class ResourcesDAO:
         return rid
 
     def insertMedicalDevice(self, rname, description, brand, quantity, price, latitude, longitude, date,
-                                  uid, initial_quantity, type):
+                                  uid, initial_quantity, type, category):
         cursor = self.conn.cursor()
+        query = "select cat_id from category where category.cat_name = %s"
+        cursor.execute(query, (category,))
+        catId = cursor.fetchone()[0]
         query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, rdate, " \
-                "uid, initial_quantity) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s) returning rid;"
+                "uid, initial_quantity, cat_id) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s, %s) returning rid;"
         cursor.execute(query, (rname, description, brand, quantity, price, latitude, longitude, date,
-                               uid, initial_quantity,))
+                               uid, initial_quantity, catId,))
         rid = cursor.fetchone()[0]
 
         query="insert into medical_device(mdtype,rid) values (%s, %s)"
@@ -172,12 +207,15 @@ class ResourcesDAO:
         self.conn.commit()
         return rid
 
-    def insertFuel(self,rname, description, brand, quantity, price, latitude, longitude, date, uid, initial_quantity, type,amount):
+    def insertFuel(self,rname, description, brand, quantity, price, latitude, longitude, date, uid, initial_quantity, type,amount, category):
         cursor = self.conn.cursor()
+        query = "select cat_id from category where category.cat_name = %s"
+        cursor.execute(query, (category,))
+        catId = cursor.fetchone()[0]
         query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, rdate, " \
-                "uid, initial_quantity) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s) returning rid;"
+                "uid, initial_quantity, cat_id) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s, %s) returning rid;"
         cursor.execute(query, (rname, description, brand, quantity, price, latitude, longitude, date,
-                               uid, initial_quantity,))
+                               uid, initial_quantity, catId,))
         rid = cursor.fetchone()[0]
 
         query = "insert into fuel(ftype,amount,rid) values (%s,%s, %s)"
@@ -186,12 +224,15 @@ class ResourcesDAO:
         return rid
 
     def insertHeavyEquipment(self, rname, description, brand, quantity, price, latitude, longitude, date,
-                                  uid, initial_quantity, heavyEquipmentType):
+                                  uid, initial_quantity, heavyEquipmentType, category):
         cursor = self.conn.cursor()
+        query = "select cat_id from category where category.cat_name = %s"
+        cursor.execute(query, (category,))
+        catId = cursor.fetchone()[0]
         query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, rdate, " \
-                "uid, initial_quantity) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s) returning rid;"
+                "uid, initial_quantity, cat_id) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s, %s) returning rid;"
         cursor.execute(query, (rname, description, brand, quantity, price, latitude, longitude, date,
-                               uid, initial_quantity,))
+                               uid, initial_quantity, catId,))
         rid = cursor.fetchone()[0]
 
         query = "insert into heavy_equipment(hetype, rid) values (%s, %s)"
@@ -200,12 +241,15 @@ class ResourcesDAO:
         return rid
 
     def insertBattery(self, rname, description, brand, quantity, price, latitude, longitude, date,
-                                  uid, initial_quantity, disposability, householdType):
+                                  uid, initial_quantity, disposability, householdType, category):
         cursor = self.conn.cursor()
+        query = "select cat_id from category where category.cat_name = %s"
+        cursor.execute(query, (category,))
+        catId = cursor.fetchone()[0]
         query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, rdate, " \
-                "uid, initial_quantity) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s) returning rid;"
+                "uid, initial_quantity, cat_id) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s, %s) returning rid;"
         cursor.execute(query, (rname, description, brand, quantity, price, latitude, longitude, date,
-                               uid, initial_quantity,))
+                               uid, initial_quantity, catId,))
         rid = cursor.fetchone()[0]
 
         query="insert into battery(disposability, household_type, rid) values (%s, %s, %s)"
@@ -214,12 +258,15 @@ class ResourcesDAO:
         return rid
 
     def insertPowerGenerator(self, rname, description, brand, quantity, price, latitude, longitude, date,
-                                  uid, initial_quantity, gen_fuel_type, type, wattage, color):
+                                  uid, initial_quantity, gen_fuel_type, type, wattage, color, category):
         cursor = self.conn.cursor()
+        query = "select cat_id from category where category.cat_name = %s"
+        cursor.execute(query, (category,))
+        catId = cursor.fetchone()[0]
         query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, rdate, " \
-                "uid, initial_quantity) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s) returning rid;"
+                "uid, initial_quantity, cat_id) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s, %s) returning rid;"
         cursor.execute(query, (rname, description, brand, quantity, price, latitude, longitude, date,
-                               uid, initial_quantity,))
+                               uid, initial_quantity, catId,))
         rid = cursor.fetchone()[0]
 
         query = "insert into power_generator(gen_fuel_type, pgtype, wattage, color, rid) values (%s, %s, %s, %s, %s)"
@@ -228,12 +275,15 @@ class ResourcesDAO:
         return rid
 
     def insertTool(self, rname, description, brand, quantity, price, latitude, longitude, date,
-                                  uid, initial_quantity, material, field):
+                                  uid, initial_quantity, material, field, category):
         cursor = self.conn.cursor()
+        query = "select cat_id from category where category.cat_name = %s"
+        cursor.execute(query, (category,))
+        catId = cursor.fetchone()[0]
         query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, rdate, " \
-                "uid, initial_quantity) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s) returning rid;"
+                "uid, initial_quantity, cat_id) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s, %s) returning rid;"
         cursor.execute(query, (rname, description, brand, quantity, price, latitude, longitude, date,
-                               uid, initial_quantity,))
+                               uid, initial_quantity, catId,))
         rid = cursor.fetchone()[0]
 
         query = "insert into tool(material, field, rid) values (%s, %s, %s)"
@@ -242,12 +292,15 @@ class ResourcesDAO:
         return rid
 
     def insertClothing(self, rname, description, brand, quantity, price, latitude, longitude, date,
-                                  uid, initial_quantity, size, gender, color, material):
+                                  uid, initial_quantity, size, gender, color, material, category):
         cursor = self.conn.cursor()
+        query = "select cat_id from category where category.cat_name = %s"
+        cursor.execute(query, (category,))
+        catId = cursor.fetchone()[0]
         query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, rdate, " \
-                "uid, initial_quantity) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s) returning rid;"
+                "uid, initial_quantity, cat_id) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s, %s) returning rid;"
         cursor.execute(query, (rname, description, brand, quantity, price, latitude, longitude, date,
-                               uid, initial_quantity,))
+                               uid, initial_quantity, catId,))
         rid = cursor.fetchone()[0]
 
         query = "insert into clothing(gender, color, material, rid, csize) values (%s, %s, %s, %s, %s)"

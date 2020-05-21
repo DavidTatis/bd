@@ -91,6 +91,71 @@ class Dictionary:
         result['initial_quantity'] = row[10]
         return result
 
+    def build_complete_resource_dict(self, row):
+        result = {}
+        result['rid'] = row[0]
+        result['rname'] = row[1]
+        result['description'] = row[2]
+        result['brand'] = row[3]
+        result['quantity'] = row[4]
+        result['price'] = row[5]
+        result['latitude'] = row[6]
+        result['longitude'] = row[7]
+        result['date'] = row[8]
+        result['uid'] = row[9]
+        result['initial_quantity'] = row[10]
+        result['categoryId'] = row[11]
+
+        if result['categoryId'] == 1: # Water
+            result['calories'] = row[12]
+            result['speciality'] = row[13]
+            result['ounces'] = row[14]
+        elif result['categoryId'] == 2: # Clothing
+            result['gender'] = row[12]
+            result['color'] = row[13]
+            result['material'] = row[14]
+            result['size'] = row[15]
+        elif result['categoryId'] == 3: # Canned food
+            result['calories'] = row[12]
+            result['nutritionfacts'] = row[13]
+            result['size'] = row[14]
+            result['foodtype'] = row[15]
+        elif result['categoryId'] == 4: # Baby food
+            result['calories'] = row[12]
+            result['nutritionfacts'] = row[13]
+            result['size'] = row[14]
+            result['foodtype'] = row[15]
+        elif result['categoryId'] == 5: # Battery
+            result['disposability'] = row[12]
+            result['householdtype'] = row[13]
+        elif result['categoryId'] == 6: # Dry food
+            result['calories'] = row[12]
+            result['nutritionfacts'] = row[13]
+            result['size'] = row[14]
+            result['foodtype'] = row[15]
+        elif result['categoryId'] == 7: # Fuel
+            result['type'] = row[12]
+            result['amount'] = row[13]
+        elif result['categoryId'] == 8: # Heavy equipment
+            result['type'] = row[12]
+        elif result['categoryId'] == 9: # Ice
+            result['weight'] = row[12]
+        elif result['categoryId'] == 10: # Medical device
+            result['type'] = row[12]
+        elif result['categoryId'] == 11: # Medication
+            result['type'] = row[12]
+            result['servingspercontainer'] = row[13]
+        elif result['categoryId'] == 12: # Power generator
+            result['genFuelType'] = row[12]
+            result['type'] = row[13]
+            result['wattage'] = row[14]
+            result['color'] = row[15]
+        elif result['categoryId'] == 13: # Tool
+            result['material'] = row[12]
+            result['field'] = row[13]
+
+        return result
+
     def build_resource_attributes(self, rid, rname, description, brand, quantity, price, latitude,
                                   longitude, date, uid, initial_quantity):
         result = {}
