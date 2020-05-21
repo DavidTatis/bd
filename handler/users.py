@@ -147,21 +147,21 @@ class UserHandler:
             result["uid"] = uid
             return jsonify(User=result), 201
         else:
-            return jsonify(Message="Error"), 500
+            return jsonify(Error="Missing attributes."), 400
 
-    def createUserConsumer(self, form):
-        if form :
-            firstname = form['firstname']
-            lastname = form['lastname']
-            username = form['username']
-            password = form['password']
-            email = form['email']
-            phone = form['phone']
-            dateofbirth = form['dateofbirth']
-            address = form['address']
-            zipcode = form['zipcode']
-            if(hasattr(form,'priority')):
-                priority = form['priority']
+    def createUserConsumer(self, json):
+        if json :
+            firstname = json['firstname']
+            lastname = json['lastname']
+            username = json['username']
+            password = json['password']
+            email = json['email']
+            phone = json['phone']
+            dateofbirth = json['dateofbirth']
+            address = json['address']
+            zipcode = json['zipcode']
+            if(hasattr(json,'priority')):
+                priority = json['priority']
             else:
                 priority=None
             dao = UsersDAO()
@@ -170,4 +170,29 @@ class UserHandler:
             result["uid"] = uid
             return jsonify(User=result), 201
         else:
-            return jsonify(Message="Error"), 500
+            return jsonify(Error="Missing attributes."), 400
+
+
+    def loginUser(self,json):
+        try:
+            username=json['username']
+            password=json['password']
+        except:
+            return jsonify(Error="Missing attributes."), 400
+        dao=UsersDAO()
+
+        try:
+            uid, firstname, lastname = dao.loginUser(username, password)
+            rol=''
+            if(dao.userIsConsumer(uid)):
+                rol='consumer'
+            elif(dao.userIsSupplier(uid)):
+                rol='supplier'
+            elif (dao.userIsAdmin(uid)):
+                rol = 'admin'
+            return jsonify(User={'uid':uid,'first_name':firstname,'last_name':lastname,'rol':rol}),200
+        except:
+            return jsonify(Error="Invalid username or password."), 400
+
+
+

@@ -10,6 +10,16 @@ class ResourcesDAO:
         self.conn = psycopg2._connect(connection_url)
 
 
+    def getAllResources(self):
+        cursor = self.conn.cursor()
+        query = "select * from resource;"
+        cursor.execute(query)
+        row_headers = [x[0] for x in cursor.description]
+        result = []
+        for row in cursor:
+            result.append(dict(zip(row_headers,row)))
+        return result
+
     def getResourceRequestedByResourceID(self, resourceID):
         cursor = self.conn.cursor()
         query = "select * from resource, order_requests_resource where resource.rid = %s AND order_requests_resource.rid=resource.rid AND order_requests_resource.needed = 1;"

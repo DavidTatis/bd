@@ -63,4 +63,8 @@ def getUserById(user_id):
     else:
         return jsonify(Error="Method not allowed."), 405
 
+@users.route('/login/', methods=['POST'])
+def loginUsers():
+    if request.method == 'POST':
+      return UserHandler().loginUser(request.get_json())
 

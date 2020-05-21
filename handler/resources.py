@@ -4,12 +4,9 @@ from handler.dictionary import Dictionary
 from time import time
 class ResourcesHandler:
     def getAllResources(self):
-        resources = [
-            {"resource_id": 1, "quantity": 2, "description": 'Botellas de agua 13oz Dasani', "brand": 'Dasani', "price": 1.00, "lat": 18.0111, "long": 66.6141},
-            {"resource_id": 2, "quantity": 23, "description": 'Bolsa de hielo 5 libras', "brand": 'La Hielera Inc', "price": 5.00, "lat": 18.0121, "long": 65.6181},
-            {"resource_id": 3, "quantity": 5, "description": 'Salchichas Carmela', "brand": 'Carmela',  "price": 0.59, "lat": 18.0111, "long": 64.9876},
-        ]
-        return jsonify(resources=resources), 200
+        dao = ResourcesDAO()
+        requests = dao.getAllResources()
+        return jsonify(resources=requests), 200
 
     def getAllResourcesAvailable(self):
         dao = ResourcesDAO()

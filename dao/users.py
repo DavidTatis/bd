@@ -90,3 +90,43 @@ class UsersDAO:
         cursor.execute(query, (uid,priority))
         self.conn.commit()
         return uid
+
+    def loginUser(self,username,password):
+        cursor=self.conn.cursor()
+        query="select uid, first_name,last_name from users where username=%s and password=%s;"
+        cursor.execute(query,(username,password,))
+        try:
+            uid,firstname,lastname=cursor.fetchone()
+            return uid,firstname,lastname
+        except:
+            return False
+
+    def userIsConsumer(self, uid):
+        cursor = self.conn.cursor()
+        query = "select uid from consumer where uid=%s"
+        cursor.execute(query, (uid,))
+        try:
+            uid = cursor.fetchone()
+            return True
+        except:
+            return False
+
+    def userIsSupplier(self,uid):
+        cursor = self.conn.cursor()
+        query = "select uid from supplier where uid=%s"
+        cursor.execute(query, (uidk,))
+        try:
+            uid = cursor.fetchone()
+            return True
+        except:
+            return False
+
+    def userIsAdmin(self,uid):
+        cursor = self.conn.cursor()
+        query = "select uid from admin where uid=%s"
+        cursor.execute(query, (uid,))
+        try:
+            uid = cursor.fetchone()
+            return True
+        except:
+            return False
