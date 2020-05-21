@@ -19,12 +19,17 @@ def getAllResourcesAvailable():
     if request.method == 'GET':
         return ResourcesHandler().getAllResourcesAvailable()
 
-
-
 @resources.route('/<int:resource_id>', methods=['GET', 'PUT', 'DELETE'])
 def getResourceById(resource_id):
     if request.method == 'GET':
         return ResourcesHandler().getResourceById(resource_id)
+    else:
+        return jsonify(Error="Method not allowed."), 405
+
+@resources.route('/details/<int:resource_id>', methods=['GET'])
+def getResourceDetailById(resource_id):
+    if request.method == 'GET':
+        return ResourcesHandler().getResourceDetailById(resource_id)
     else:
         return jsonify(Error="Method not allowed."), 405
 
@@ -107,7 +112,7 @@ def getWaterResourceById(resource_id):
 @resources.route('/battery/', methods=['GET', 'POST'])
 def getAllBatteryResources():
     if request.method == 'POST':
-      return jsonify(Message="Battery Resource created."), 200
+        return ResourcesHandler().insertBattery(request.get_json())
     else:
         if not request.args:
             return ResourcesHandler().getAllBatteryResources()
@@ -137,7 +142,7 @@ def getBatteryResourceById(resource_id):
 @resources.route('/powerGenerator/', methods=['GET', 'POST'])
 def getAllPowerGeneratorResources():
     if request.method == 'POST':
-      return jsonify(Message="Power Generators Resource created."), 200
+      return ResourcesHandler().insertPowerGenerator(request.get_json())
     else:
         if not request.args:
             return ResourcesHandler().getAllPowerGeneratorResources()
@@ -167,7 +172,7 @@ def getPowerGeneratorResourceById(resource_id):
 @resources.route('/tool/', methods=['GET', 'POST'])
 def getAllToolResources():
     if request.method == 'POST':
-      return jsonify(Message="Tool Resource created."), 200
+        return ResourcesHandler().insertTool(request.get_json())
     else:
         if not request.args:
             return ResourcesHandler().getAllToolResources()
@@ -196,7 +201,7 @@ def getToolResourceById(resource_id):
 @resources.route('/clothing/', methods=['GET', 'POST'])
 def getAllClothingResources():
     if request.method == 'POST':
-      return jsonify(Message="Clothing Resource created."), 200
+      return ResourcesHandler().insertClothing(request.get_json())
     else:
         if not request.args:
             return ResourcesHandler().getAllClothingResources()
@@ -222,7 +227,7 @@ def getClothingResourceById(resource_id):
 @resources.route('/heavyEquipment/', methods=['GET', 'POST'])
 def getAllHeavyEquipmentResources():
     if request.method == 'POST':
-        return jsonify(Message="Heavy Equipment Resource created."), 200
+        return ResourcesHandler().insertHeavyEquipment(request.get_json())
     else:
         if not request.args:
             return ResourcesHandler().getAllHeavyEquipmentResources()
@@ -272,7 +277,7 @@ def getIceResourceById(resource_id):
 @resources.route('/medicalDevice/', methods=['GET', 'POST'])
 def getAllMedicalDeviceResources():
     if request.method == 'POST':
-        return ResourcesHandler().insertMedicalDevices(request.get_json())
+        return ResourcesHandler().insertMedicalDevice(request.get_json())
     else:
         if not request.args:
             return ResourcesHandler().getAllMedicalDeviceResources()
