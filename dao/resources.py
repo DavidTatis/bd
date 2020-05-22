@@ -81,7 +81,7 @@ class ResourcesDAO:
     def insertWater(self, rname, description, brand, quantity, price, latitude, longitude, date,
                                   uid, initial_quantity, calories, speciality, ounces):
         cursor = self.conn.cursor()
-        query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, date, " \
+        query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, rdate, " \
                 "uid, initial_quantity) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s) returning rid;"
         cursor.execute(query, (rname, description, brand, quantity, price, latitude, longitude, date,
                                uid, initial_quantity,))
@@ -95,7 +95,7 @@ class ResourcesDAO:
     def insertCannedFood(self, rname, description, brand, quantity, price, latitude, longitude, date,
                                   uid, initial_quantity, calories, nutritionfacts, size, foodtype):
         cursor = self.conn.cursor()
-        query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, date, " \
+        query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, rdate, " \
                 "uid, initial_quantity) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s) returning rid;"
         cursor.execute(query, (rname, description, brand, quantity, price, latitude, longitude, date,
                                uid, initial_quantity,))
@@ -111,7 +111,7 @@ class ResourcesDAO:
     def insertDryFood(self, rname, description, brand, quantity, price, latitude, longitude, date,
                                   uid, initial_quantity, calories, nutritionfacts, size, foodtype):
         cursor = self.conn.cursor()
-        query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, date, " \
+        query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, rdate, " \
                 "uid, initial_quantity) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s) returning rid;"
         cursor.execute(query, (rname, description, brand, quantity, price, latitude, longitude, date,
                                uid, initial_quantity,))
@@ -127,7 +127,7 @@ class ResourcesDAO:
     def insertBabyFood(self, rname, description, brand, quantity, price, latitude, longitude, date,
                                   uid, initial_quantity, calories, nutritionfacts, size, foodtype):
         cursor = self.conn.cursor()
-        query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, date, " \
+        query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, rdate, " \
                 "uid, initial_quantity) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s) returning rid;"
         cursor.execute(query, (rname, description, brand, quantity, price, latitude, longitude, date,
                                uid, initial_quantity,))
@@ -143,7 +143,7 @@ class ResourcesDAO:
     def insertMedication(self, rname, description, brand, quantity, price, latitude, longitude, date,
                                   uid, initial_quantity, type, servingspercontainer):
         cursor = self.conn.cursor()
-        query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, date, " \
+        query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, rdate, " \
                 "uid, initial_quantity) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s) returning rid;"
         cursor.execute(query, (rname, description, brand, quantity, price, latitude, longitude, date,
                                uid, initial_quantity,))
@@ -160,7 +160,7 @@ class ResourcesDAO:
     def insertIce(self, rname, description, brand, quantity, price, latitude, longitude, date,
                                   uid, initial_quantity, weight):
         cursor = self.conn.cursor()
-        query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, date, " \
+        query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, rdate, " \
                 "uid, initial_quantity) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s) returning rid;"
         cursor.execute(query, (rname, description, brand, quantity, price, latitude, longitude, date,
                                uid, initial_quantity,))
@@ -174,7 +174,7 @@ class ResourcesDAO:
     def insertMedicalDevices(self, rname, description, brand, quantity, price, latitude, longitude, date,
                                   uid, initial_quantity, type):
         cursor = self.conn.cursor()
-        query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, date, " \
+        query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, rdate, " \
                 "uid, initial_quantity) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s) returning rid;"
         cursor.execute(query, (rname, description, brand, quantity, price, latitude, longitude, date,
                                uid, initial_quantity,))
@@ -187,7 +187,7 @@ class ResourcesDAO:
 
     def insertFuel(self,rname, description, brand, quantity, price, latitude, longitude, date, uid, initial_quantity, type,amount):
         cursor = self.conn.cursor()
-        query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, date, " \
+        query = "insert into resource(rname, description, brand, quantity, price, latitude, longitude, rdate, " \
                 "uid, initial_quantity) values (%s, %s, %s,%s, %s, %s,%s,%s,%s,%s) returning rid;"
         cursor.execute(query, (rname, description, brand, quantity, price, latitude, longitude, date,
                                uid, initial_quantity,))
@@ -207,10 +207,10 @@ class ResourcesDAO:
             rid,qty,price= cursor.fetchone()
             if(qty>=quantities[i]): #VALIDATION OF QUANTITY
                 amount=price*quantities[i] #CALCULATE THE PAYMENT AMOUNT QUANTITY*PRICE
-                queryPayment="insert into payment(method,amount,date,uid) values (%s,%s,%s,%s) returning pay_id;"
+                queryPayment="insert into payment(method,amount,pdate,uid) values (%s,%s,%s,%s) returning pay_id;"
                 cursor.execute(queryPayment,(method,amount,date_milliseconds,uid,))
                 pay_id=cursor.fetchone()[0] #GET THE ID OF THE CREATED PAYMENT
-                queryOrder="insert into orders(quantity, date, pay_id,uid) values (%s,%s,%s,%s) returning ord_id;"
+                queryOrder="insert into orders(quantity, odate, pay_id,uid) values (%s,%s,%s,%s) returning ord_id;"
                 cursor.execute(queryOrder,(quantities[i],date_milliseconds,pay_id,uid))
                 ord_id=cursor.fetchone()[0]#GET THE ID OF THE ORDER CREATED
                 newResourceQty=qty-quantities[i]
@@ -240,7 +240,7 @@ class ResourcesDAO:
             if(price!=0):
                 return 1
             if(qty>=quantities[i]): #VALIDATION OF QUANTITY
-                queryOrder="insert into orders(quantity, date,uid) values (%s,%s,%s) returning ord_id;"
+                queryOrder="insert into orders(quantity, odate,uid) values (%s,%s,%s) returning ord_id;"
                 cursor.execute(queryOrder,(quantities[i],date_milliseconds,uid))
                 ord_id=cursor.fetchone()[0]#GET THE ID OF THE ORDER CREATED
                 newResourceQty=qty-quantities[i]
@@ -265,7 +265,7 @@ class ResourcesDAO:
             rid,qty= cursor.fetchone()
 
             if(qty==0): #VALIDATION OF QUANTITY
-                queryOrder="insert into orders(quantity, date,uid) values (%s,%s,%s) returning ord_id;"
+                queryOrder="insert into orders(quantity, odate,uid) values (%s,%s,%s) returning ord_id;"
                 cursor.execute(queryOrder,(quantities[i],date_milliseconds,uid))
                 ord_id=cursor.fetchone()[0]#GET THE ID OF THE ORDER CREATED
                 queryBuy="insert into order_requests_resource(ord_id,rid,needed) values (%s,%s,%s);"
